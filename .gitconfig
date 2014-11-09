@@ -1,0 +1,33 @@
+[user]
+    name=Dmitry Mozzherin
+    email=dmozzherin@gmail.com
+[github]
+	user = dimus
+[color]
+    branch=auto
+    diff=auto
+    status=auto
+[color "branch"]
+    current=yellow reverse
+    local=yellow
+    remote=green
+[color "diff"]
+    meta=yellow bold
+    frag=magenta bold
+    old=red bold
+    new=green bold
+[color "status"]
+    added=yellow
+    changed=green
+    untracked=cyan
+[merge]
+    tool=vimdiff
+[branch]
+    autosetupmerge=true
+[alias]
+    co=checkout
+    st=status -sb
+    ci=commit
+    br=branch
+[push]
+	default = simple
