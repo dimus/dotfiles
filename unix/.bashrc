@@ -123,19 +123,19 @@ HISTSIZE=9000
 HISTFILESIZE=$HISTSIZE
 HISTCONTROL=ignorespace:ignoredups
 
-history() {
-  _bash_history_sync
-  builtin history "$@"
-}
-
-_bash_history_sync() {
-  builtin history -a         #1
-  HISTFILESIZE=$HISTSIZE     #2
-  builtin history -c         #3
-  builtin history -r         #4
-}
-
-PROMPT_COMMAND=_bash_history_sync
+# history() {
+#   _bash_history_sync
+#   builtin history "$@"
+# }
+#
+# _bash_history_sync() {
+#   builtin history -a         #1
+#   HISTFILESIZE=$HISTSIZE     #2
+#   builtin history -c         #3
+#   builtin history -r         #4
+# }
+#
+# PROMPT_COMMAND=_bash_history_sync
 
 sudo /etc/rc.local
 
