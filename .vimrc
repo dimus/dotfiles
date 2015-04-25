@@ -27,6 +27,8 @@
  NeoBundle 'ervandew/supertab', {'name': 'supertab'}
  NeoBundle 'SirVer/ultisnips', {'name': 'ultisnips'}
  NeoBundle 'honza/vim-snippets', {'name': 'snippets'}
+ NeoBundle 'kana/vim-textobj-user', {'name': 'textobj-user'}
+ NeoBundle 'nelstrom/vim-textobj-rubyblock', {'name': 'textobj-rubyblock'}
  " NeoBundle 'Shougo/neocomplete.vim', {'name': 'neocomplete'}
  call neobundle#end()
 
@@ -165,7 +167,7 @@
 " Commands {
   " allows to save buffer with sudo
   command W w !sudo tee % >/dev/null
-  " autocmd BufWritePre *.rb :%s/\\s\\+$//e
+  autocmd BufWritePre *.rb,*.treetop,*.md :%s/\v\s+$//e
 " }
 
 " Rails {
