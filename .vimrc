@@ -98,6 +98,7 @@
   syntax on           " syntax highlighting
   set mouse=a         " automatically enable mouse usage
   set vb "makes visual bell instead of sound
+  set t_Co=256
 
   " Setting up the directories {
     " set backup            " backups are nice ...
@@ -297,7 +298,7 @@
 " }
 
 " Colors {
-  "colorscheme eol_dark
+  color ron
   if &diff
       colorscheme evening
   endif
