@@ -73,6 +73,10 @@ sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bas
 
 sudo systemctl start bluetooth.service
 sudo systemctl enable ntpdate.service
+sudo systemctl enable snapper-timeline.timer
+sudo systemctl enable snapper-cleanup.timer
+sudo systemctl start snapper-timeline.timer
+sudo systemctl start snapper-cleanup.timer
 # use bluetoothctl cli to connect
 
 sudo systemctl start avahi-daemon.service
