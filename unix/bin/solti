@@ -1,0 +1,3 @@
+#!/bin/sh
+
+zathura ~/Music/Solti-all-Chicago-2017/Solti.pdf

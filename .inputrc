@@ -1,0 +1,11 @@
+set editing-mode vim
+
+set keymap vi-insert
+"jk": vi-movement-mode
+"\C-w": backward-kill-word
+"\C-p": history-search-backward
+"\e.": yank-last-arg
+
+set keymap vi-command
+"gg": beginning-of-history
+"G": end-of-history

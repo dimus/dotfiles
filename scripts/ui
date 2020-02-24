@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cd
+if [ ! -L .vimrc ]; then
+  ln -s ~/src/dotfiles/.vim .
+  ln -s ~/src/dotfiles/.vimrc .
+  ln -s ~/src/dotfiles/.gitconfig .
+  ln -s ~/src/dotfiles/.git_colors .
+  ln -s ~/src/dotfiles/.bash_aliases .
+  ln -s ~/src/dotfiles/.gemrc .
+  ln -s ~/src/dotfiles/unix/.gvimrc .
+  ln -s ~/src/dotfiles/.tmux.conf .
+  ln -s ~/src/dotfiles/.tmuxinator .
+  ln -s ~/src/dotfiles/.inputrc .
+fi
+
+#install neovim
+if [ ! -d ~/.config/nvim ]; then
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt-get update
+  sudo apt-get install neovim python-dev python-pip python3-dev python3-pip
+
+  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+  sudo update-alternatives --config vi
+  sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+  sudo update-alternatives --config editor
+  if [ ! -d ~/.config ]; then
+    mkdir ~/.config
+  fi
+  cd ~/.config
+  ln -s ~/.vim nvim
+  ln -s ~/.vimrc nvim/init.vim
+fi

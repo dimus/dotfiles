@@ -1,0 +1,3 @@
+#!/bin/sh
+# This script ensures that i3 will spawn a calculator.
+irb --prompt simple

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Set our bash prompt according to the branch/status of the current git 
+# Set our bash prompt according to the branch/status of the current git
 # repository.
 #
 # Forked from http://gist.github.com/31934
@@ -22,19 +22,19 @@ function is_git_repository {
 function parse_git_branch {
   # Only display git info if we're inside a git repository.
   is_git_repository || return 1
-  
+
   # Capture the output of the "git status" command.
   git_status="$(git status 2> /dev/null)"
 
   # Set color based on clean/staged/dirty.
-  if [[ ${git_status} =~ "working directory clean" ]]; then
+  if [[ ${git_status} =~ "working tree clean" ]]; then
     state="${GREEN}"
   elif [[ ${git_status} =~ "Changes to be committed" ]]; then
     state="${YELLOW}"
   else
     state="${RED}"
   fi
-  
+
   # Set arrow icon based on status against remote.
   remote_pattern="Your branch is (.*) of"
   if [[ ${git_status} =~ ${remote_pattern} ]]; then
@@ -48,9 +48,9 @@ function parse_git_branch {
   if [[ ${git_status} =~ ${diverge_pattern} ]]; then
     remote="↕"
   fi
-  
+
   # Get the name of the branch.
-  branch_pattern="^On branch ([^${IFS}]*)"    
+  branch_pattern="^On branch ([^${IFS}]*)"
   if [[ ${git_status} =~ ${branch_pattern} ]]; then
     branch=${BASH_REMATCH[1]}
   fi
@@ -63,9 +63,9 @@ function prompt_symbol () {
   # Set color of dollar prompt based on return value of previous command.
   if test $1 -eq 0
   then
-      echo "${GREEN}☺${COLOR_NONE}"
+      echo "${GREEN}\$${COLOR_NONE}"
   else
-      echo "${RED}☹${COLOR_NONE}"
+      echo "${RED}\$${COLOR_NONE}"
   fi
 }
 

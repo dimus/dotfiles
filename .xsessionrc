@@ -1,0 +1,10 @@
+#!/bin/sh
+
+#Palm detect
+synclient PalmDetect=1  PalmMinWidth=10 PalmMinZ=100
+#"Natural" scrolling
+/usr/bin/synclient VertScrollDelta=-20 HorizScrollDelta=-20
+/usr/bin/synclient MaxTapTime=0
+
+/usr/bin/syndaemon -i 1.0 -d
+~/bin/wacom > ~/tmp/wacom.out

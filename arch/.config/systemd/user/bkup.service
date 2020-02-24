@@ -1,0 +1,9 @@
+[Unit]
+Description=Updates backup for /home/USER
+
+[Service]
+Type=oneshot
+ExecStart=/home/USER/bin/bkup
+
+[Install]
+WantedBy=default.target

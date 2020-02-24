@@ -1,5 +1,5 @@
 " gvim settings
-set guifont=Monospace\ 18
+set guifont=Monospace\ 15
 set mouse=a
 set guioptions-=m
 set guioptions-=T

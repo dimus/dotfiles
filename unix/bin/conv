@@ -1,0 +1,11 @@
+#!/bin/bash
+
+dirs=CD*
+for d in $dirs
+do
+  echo "Processing ${d} ..."
+  cd ${d}
+  parallel ffmpeg -i {} -qscale:a 0 {.}.mp3 ::: ./*.flac
+  rm *.flac
+  cd ..
+done

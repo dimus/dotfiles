@@ -1,0 +1,9 @@
+[Unit]
+Description=Changes background
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/feh --bg-max --randomize /home/USER/Pictures/wallpapers
+
+[Install]
+WantedBy=default.target

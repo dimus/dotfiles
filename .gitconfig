@@ -20,8 +20,17 @@
     added=yellow
     changed=green
     untracked=cyan
+
 [merge]
-    tool=vimdiff
+  tool = vimdiff
+[mergetool]
+  prompt = true
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[difftool]
+  prompt = false
+[diff]
+  tool = vimdiff
 [branch]
     autosetupmerge=true
 [alias]
@@ -29,5 +38,11 @@
     st=status -sb
     ci=commit
     br=branch
+    l=log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    pull=pull -p
 [push]
 	default = simple
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/

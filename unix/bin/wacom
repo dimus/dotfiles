@@ -1,0 +1,14 @@
+#!/bin/bash
+
+DEVICE="Wacom Intuos BT S"
+
+STYLUS="$DEVICE Pen stylus"
+PAD="$DEVICE Pad pad"
+
+echo "Button 2 is " `xsetwacom get "$STYLUS" Button 2`
+echo "Button 3 is " `xsetwacom get "$STYLUS" Button 3`
+
+xsetwacom set "$STYLUS" Button 2 "button +3" && xsetwacom set "$STYLUS" Button 3 "button +2"
+
+echo "Button 2 is " `xsetwacom get "$STYLUS" Button 2`
+echo "Button 3 is " `xsetwacom get "$STYLUS" Button 3`

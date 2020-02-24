@@ -1,0 +1,233 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo "enter the name of the computer: gna, gnlap, home"
+	exit 1
+fi
+
+host=${1}
+
+# font=latarcyrheb-sun32
+font=ter-124b
+
+user=$(whoami)
+
+rm -rf  ~/.profile
+ln -s /home/dimus/src/dotfiles/arch/.profile ~/.profile
+rm -rf  ~/.bashrc
+ln -s /home/dimus/src/dotfiles/arch/.bashrc ~/.bashrc
+rm -rf  ~/.bashrc_local
+ln -s /home/dimus/src/dotfiles/arch/${host}/.bashrc_local ~/.bashrc_local
+
+### "Normal" install parts ###
+
+sudo rm /etc/localtime
+sudo ln -s /usr/share/zoneinfo/America/Chicago /etc/localtime
+sudo hwclock --systohc
+
+sudo sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /etc/locale.gen
+sudo locale-gen
+
+sudo tee /etc/locale.conf > /dev/null <<EOT
+LANG=en_US.UTF-8
+LC_COLLATE=C
+EOT
+
+unset LANG
+source /etc/profile.d/locale.sh
+
+/usr/bin/echo ${host} | sudo tee /etc/hostname > /dev/null
+
+sudo tee /etc/hosts > /dev/null << EOF
+127.0.0.1	localhost
+::1		localhost
+127.0.1.1	${host}.localdomain ${host}
+EOF
+
+### Setup font for terminal ###
+
+sudo /usr/bin/pacman -S --noconfirm --needed terminus-font
+
+/usr/bin/setfont ${font}
+
+mymap=us-caps-lock
+mapdir=/usr/local/share/kbd/keymaps
+
+sudo mkdir -p ${mapdir}
+sudo cp ../arch/${mymap}.map ${mapdir}
+
+sudo tee /etc/vconsole.conf > /dev/null << EOF
+KEYMAP=${mapdir}/${mymap}
+FONT=${font}
+EOF
+
+### General packages ###
+mkdir ~/bin
+mkdir ~/tmp
+
+sudo /usr/bin/pacman -S --noconfirm --needed ntp tldr python-pip neovim broadcom-wl w3m pandoc light vifm dialog wpa_supplicant iw networkmanager network-manager-applet openconnect networkmanager-openconnect lm_sensors dnsutils
+sudo /usr/bin/pacman -S --noconfirm --needed mlocate bluez bluez-utils xz nvme-cli #bluetooth
+sudo /usr/bin/pacman -S --noconfirm --needed nmap htop iotop iftop powertop nmap parallel tmux rsync net-tools udisks2
+sudo /usr/bin/pacman -S --noconfirm --needed wget zip unzip alsa-utils pulseaudio-alsa pulseaudio pulsemixer pulseaudio-bluetooth pulseaudio-equalizer mpd mpc avahi cups btrfs-progs snapper snap-pac fzf
+sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bash-completion
+
+sudo systemctl start bluetooth.service
+sudo systemctl enable ntpdate.service
+# use bluetoothctl cli to connect
+
+sudo systemctl start avahi-daemon.service
+sudo systemctl enable avahi-daemon.service
+sudo systemctl start org.cups.cupsd.service
+sudo systemctl enable org.cups.cupsd.service
+
+#Equalizer frontend: qpaeq
+
+### Config files ###
+
+rm -rf ~/.gitconfig
+ln -s ~/src/dotfiles/.gitconfig ~
+
+rm -rf ~/.scripts
+ln -s ~/src/dotfiles/.scripts ~/.scripts
+
+rm -rf ~/.vim
+rm -f ~/.vimrc
+ln -s ~/src/dotfiles/.vim ~
+ln -s ~/src/dotfiles/.vimrc ~
+
+rm -f ~/.bash_aliases
+ln -s ~/src/dotfiles/.bash_aliases ~
+rm -f ~/git-completion.bash
+ln -s ~/src/dotfiles/git-completion.bash ~
+
+rm -f ~/.psqlrc
+ln -s ~/src/dotfiles//arch/.psqlrc ~
+
+rm -rf ~/.config/vifm
+ln -s ~/src/dotfiles/.config/vifm ~/.config/vifm
+
+rm -f ~/.config/nvim
+ln -s ~/.vim ~/.config/nvim
+rm -f ~/.config/nvim/init.vim
+ln -s ~/.vimrc ~/.config/nvim/init.vim 2> /dev/null
+sudo pip install neovim
+
+rm -rf ~/.config/mpd
+ln -s ~/src/dotfiles/arch/.config/mpd ~/.config/mpd
+
+if [[ ! -d ~/.mpd ]]; then
+  mkdir -p ~/.mpd/playlists
+  touch ~/.mpd/log
+  touch ~/.mpd/pid
+  touch ~/.mpd/database
+fi
+
+
+### Xorg and i3 ###
+
+sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool
+sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcmanfm xorg-xfontsel xorg-xlsfonts xorg-xprop
+sudo /usr/bin/pacman -S --noconfirm --needed ttf-hack xf86-input-wacom alacritty
+sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst conky compton unclutter
+sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox firefox-i18n-en-us chromium gimp powerline awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code otf-fira-mono ttf-fira-code ttf-fira-mono adobe-source-han-serif-otc-fonts adobe-source-han-sans-otc-fonts
+sudo /usr/bin/pacman -S --noconfirm --needed youtube-dl jq vlc
+# do not use powerline-fonts
+# sudo ln -s ~/src/dotfiles/arch/90-capslock-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
+# sudo ln -s ~/src/dotfiles/arch/95-layout-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
+
+mkdir -p $HOME/Pictures/ScreenShoots
+rm -f ~/.xinitrc
+ln -s ~/src/dotfiles/arch/.xinitrc ~
+
+mkdir -p ~/.config
+rm -rf ~/.config/i3
+ln -s ~/src/dotfiles/arch/.config/i3 ~/.config/i3
+rm -rf ~/.config/i3status
+ln -s ~/src/dotfiles/arch/.config/i3status ~/.config/i3status
+rm -rf ~/.config/compton
+ln -s ~/src/dotfiles/arch/.config/compton ~/.config/compton
+rm -rf ~/.config/dunst
+ln -s ~/src/dotfiles/arch/.config/dunst ~/.config/dunst
+rm -rf ~/.config/alacritty
+ln -s ~/src/dotfiles/arch/.config/alacritty ~/.config/alacritty
+rm -f ~/bin/disp
+ln -s ~/src/dotfiles/arch/${host}/disp ~/bin/disp
+rm -f ~/bin/solti
+ln -s ~/src/dotfiles/unix/bin/solti ~/bin/solti
+rm -f ~/bin/trim
+ln -s ~/src/dotfiles/unix/bin/trim ~/bin/trim
+rm ~/.config/liquidpromptrc
+ln -s ~/src/dotfiles/arch/.config/liquidpromptrc ~/.config/liquidpromptrc
+
+sudo rm -f /etc/bash_completion.d/btrfs-completion.bash
+sudo cp ~/src/dotfiles/arch/btrfs-completion.bash /etc/bash_completion.d
+
+rm -f ~/.Xresources
+ln -s ~/src/dotfiles/arch/.Xresources ~
+rm -rf ~/.my_urxvt
+  ln -s ~/src/dotfiles/arch/.my_urxvt ~
+rm -rf ~/.my_Xcolors
+ln -s ~/src/dotfiles/arch/.my_Xcolors ~
+
+### Programming ###
+
+sudo /usr/bin/pacman -S --noconfirm --needed go go-tools code protobuf docker rustup ragel
+
+sudo systemctl enable docker
+sudo systemctl start docker
+
+rm -rf ~/.cobra.yaml
+ln -s ~/src/dotfiles/.cobra.yaml ~/.cobra.yaml
+
+if [ ! -d ~/.rbenv ]; then
+  git clone https://github.com/sstephenson/rbenv.git ~/.rbenv
+  git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+  git clone https://github.com/rkh/rbenv-update.git ~/.rbenv/plugins/rbenv-update
+fi
+
+### Postmods ###
+
+# remove terminal beep on the kernel level
+sudo rmmod pcspkr 2> /dev/null
+echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
+
+### Cronjobs (substituted by timer service) ###
+
+rm -rf ~/.config/systemd
+cp -r ~/src/dotfiles/arch/.config/systemd ~/.config
+cp  ~/src/dotfiles/unix/bin/bkup ~/bin
+mv ~/.config/systemd/user/bkup.timer ~/.config/systemd/user/bkup-${user}.timer
+mv ~/.config/systemd/user/bkup.service ~/.config/systemd/user/bkup-${user}.service
+sed -i "s/USER/$USER/" ~/.config/systemd/user/feh.service
+sed -i "s/USER/$USER/" ~/.config/systemd/user/bkup-${user}.service
+sed -i "s/USER/$USER/" ~/.config/systemd/user/bkup-${user}.timer
+sed -i "s/USER/${user}/g" ~/bin/bkup
+systemctl --user daemon-reload
+systemctl --user stop feh.service
+systemctl --user stop feh.timer
+systemctl --user disable feh.service
+systemctl --user disable feh.timer
+systemctl --user enable feh.service
+systemctl --user enable feh.timer
+systemctl --user start feh.service
+systemctl --user start feh.timer
+systemctl --user enable mpd
+
+if [ ${host} = 'home' ]; then
+  systemctl --user daemon-reload
+  systemctl --user stop bkup-${user}.service
+  systemctl --user stop bkup-${user}.timer
+  systemctl --user disable bkup-${user}.service
+  systemctl --user disable bkup-${user}.timer
+  systemctl --user enable bkup-${user}.service
+  systemctl --user enable bkup-${user}.timer
+  systemctl --user start bkup-${user}.timer
+fi
+echo "When it is safe uncomment backup line in ~/bin/bkup files"
+
+### Footnotes
+
+# To connect to wireless:
+# nmcli device wifi rescan
+# nmcli device wifi list
+# nmcli device wifi connect <SSID> password <pass>

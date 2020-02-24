@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# rsync -Pav --delete /home/USER/ syn:/volume1/backups/computers/aero/home/USER
+rsync -Pav /var/cache/pacman syn:/volume1/backups/computers

@@ -140,8 +140,8 @@ HISTCONTROL=ignorespace:ignoredups
 sudo /etc/rc.local
 
 
-source /etc/profile.d/rvm.sh
-export PATH="$PATH:$HOME/.rvm/bin:$GOPATH/bin" # Add RVM to PATH for scripting
 [[ -s "/home/dimus/.gvm/scripts/gvm" ]] && source "/home/dimus/.gvm/scripts/gvm"
 export GOPATH="$GOPATH:$HOME/goeg:$HOME/go"
 export EDITOR="vim"
+export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
+xmodmap -e "keycode 135 = U2126 Multi_key Multi_key Multi_key"

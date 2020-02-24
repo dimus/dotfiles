@@ -1,0 +1,35 @@
+# ~/.tmuxinator/hbook1.yml
+
+name: hbook1
+root: /home/dimus/books/haskell_book/book.realworldhaskell.org/read
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for
+# setting up interpreter versions.  pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different
+# tmux.conf.  tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers
+# like byobu.  tmux_command:
+
+# Specifies (by name or index) which window will be selected on project
+# startup. If not set, the first window is used.  startup_window: logs
+
+windows:
+  - browser:
+      layout: main-vertical
+      panes:
+        - w3m ./index.html
+        - source ~/.tinyprompt && clear && ghci
+  - editor:
+      layout: 006f,123x31,0,0{80x31,0,0,13,42x31,81,0,16}
+      panes:
+        - vim: vim notes
+        - source ~/.tinyprompt && clear && ghci
+  - bash:

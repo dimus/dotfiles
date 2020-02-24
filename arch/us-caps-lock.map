@@ -1,0 +1,4 @@
+include "/usr/share/kbd/keymaps/i386/qwerty/us.map.gz"
+
+# Make Caps_Lock to be a Control key
+keycode 58 = Control

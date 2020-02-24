@@ -1,0 +1,9 @@
+[Unit]
+Description=Send backup of /home/USER
+
+[Timer]
+OnBootSec=15m
+OnUnitActiveSec=2h
+
+[Install]
+WantedBy=timers.target

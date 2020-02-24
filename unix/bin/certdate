@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo | openssl s_client -connect parser.globalnames.org:443 -servername parser.globalnames.org 2>/dev/null | openssl x509 -noout -dates

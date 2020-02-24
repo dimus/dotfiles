@@ -1,0 +1,44 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get dist-upgrade -q
+sudo apt-get install -qy build-essential git
+sudo apt-get install -qy sysstat iotop iftop ifstat htop nmap xsel
+sudo apt-get install -qy libreadline-dev libssl-dev libxml2-dev
+sudo apt-get install -qy libxslt-dev python-software-properties nodejs npm
+sudo apt-get install -qy libmysqlclient-dev tmux w3m
+sudo apt-get install -qy sudo aptitude dconf-editor curl libqt4-dev
+sudo apt-get install -qy libyaml-dev python-setuptools python-yaml parallel
+sudo apt-get install -qy ruby-dev zlib1g-dev liblzma-dev
+sudo apt-get install -qy exuberant-ctags
+
+cd
+if [ ! -L .vimrc ]; then
+  ln -s ~/src/dotfiles/.vim .
+  ln -s ~/src/dotfiles/.vimrc .
+  ln -s ~/src/dotfiles/.gitconfig .
+  ln -s ~/src/dotfiles/.git_colors .
+  ln -s ~/src/dotfiles/.bash_aliases .
+  ln -s ~/src/dotfiles/.gemrc .
+  ln -s ~/src/dotfiles/unix/.gvimrc .
+  ln -s ~/src/dotfiles/.tmux.conf .
+  ln -s ~/src/dotfiles/.tmuxinator .
+  ln -s ~/src/dotfiles/.inputrc .
+fi
+
+#install neovim
+if [ ! -d ~/.config/nvim ]; then
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt-get update
+  sudo apt-get install neovim python-dev python-pip python3-dev python3-pip
+
+  sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+  sudo update-alternatives --config vi
+  sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+  sudo update-alternatives --config editor
+  if [ ! -d ~/.config ]; then
+    mkdir ~/.config
+  fi
+  cd ~/.config
+  ln -s ~/.vim nvim
+  ln -s ~/.vimrc nvim/init.vim
+fi
