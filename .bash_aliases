@@ -37,7 +37,7 @@ alias mic="arecord -vv -f  dat /dev/null"
 alias pg="sudo su - postgres"
 alias sys="sudo systemctl"
 alias sysu="systemctl --user"
-alias bt="sudo btrfs"
+alias btrfs="sudo btrfs"
 alias sn="sudo snapper"
 
 if [ -f $HOME/.bash_aliases_local ]; then

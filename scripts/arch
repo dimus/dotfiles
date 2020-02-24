@@ -77,6 +77,9 @@ sudo systemctl enable snapper-timeline.timer
 sudo systemctl enable snapper-cleanup.timer
 sudo systemctl start snapper-timeline.timer
 sudo systemctl start snapper-cleanup.timer
+rm -f ~/bin/scrub-files
+ln -s ~/src/dotfiles/unix/bin/scrub-files ~/bin/scrub-files
+
 # use bluetoothctl cli to connect
 
 sudo systemctl start avahi-daemon.service
