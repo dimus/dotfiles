@@ -2,7 +2,8 @@
 Description=Change background every 10 minutes
 
 [Timer]
-OnCalendar=*:0/10
+OnActiveSec=5sec
+OnUnitActiveSec=10min
 
 [Install]
 WantedBy=timers.target
