@@ -16,8 +16,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'cespare/vim-toml'
   Plug 'chr4/nginx.vim'
   Plug 'chrisbra/Colorizer'
-  Plug 'derekwyatt/vim-scala'
-  Plug 'easymotion/vim-easymotion'
   Plug 'ervandew/supertab'
   Plug 'fatih/vim-go'
   Plug 'frazrepo/vim-rainbow'
@@ -105,15 +103,6 @@ let g:ctrlp_custom_ignore = '\v[\/](\.(git|stack-work)|coverage|elm-stuff)$'
 
 " Neomake
 autocmd! BufWritePost * Neomake
-
-" vim-scala
-autocmd BufNewFile,BufRead *.scala   set ft=scala " Set syntax highlighting for .scala files
-autocmd BufNewFile,BufRead *.sc      set ft=scala " Set syntax highlighting for scala worksheet files
-autocmd BufNewFile,BufRead *.peg     set ft=pigeon " pigeon syntax hl
-
-" Ensime
-" autocmd BufWritePost *.scala silent :EnTypeCheck
-nnoremap <leader>t :EnType<CR>
 
 " elm
 let g:elm_detailed_complete = 0
