@@ -178,7 +178,7 @@ ln -s ~/src/dotfiles/arch/.my_Xcolors ~
 
 ### Programming ###
 
-sudo /usr/bin/pacman -S --noconfirm --needed go go-tools code protobuf docker rustup ragel
+sudo /usr/bin/pacman -S --noconfirm --needed go go-tools code protobuf docker ragel
 
 sudo systemctl enable docker
 sudo systemctl start docker
