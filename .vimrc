@@ -184,8 +184,6 @@ let g:elm_format_autosave = 0
   inoremap jk <esc>
   " fuzzy search for file
   nnoremap <C-p> :FZF<CR>
-  " Remove one window shortcut
-  noremap <C-o>o <nop>
   " visual select for one line
   noremap vv ^vg
     " map R :!ruby % <cr>
