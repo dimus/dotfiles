@@ -4,14 +4,29 @@
 " Plugins {
 call plug#begin('~/.vim/plugged')
   Plug 'ElmCast/elm-vim'
+  Plug 'PotatoesMaster/i3-vim-syntax'
+  Plug 'Shougo/vimproc'
+  Plug 'Shougo/vimshell'
   Plug 'SirVer/ultisnips'
+  Plug 'amadeus/vim-convert-color-to'
+  Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
+  Plug 'cespare/vim-toml'
   Plug 'chr4/nginx.vim'
+  Plug 'chrisbra/Colorizer'
   Plug 'derekwyatt/vim-scala'
   Plug 'easymotion/vim-easymotion'
+  Plug 'ervandew/supertab'
   Plug 'fatih/vim-go'
+  Plug 'frazrepo/vim-rainbow'
   Plug 'git@github.com:dimus/vim-snippets'
   Plug 'git@github.com:vim-airline/vim-airline.git'
+  Plug '/usr/bin/fzf'
+  Plug 'junegunn/fzf'
   Plug 'kana/vim-textobj-user'
+  Plug 'mechatroner/rainbow_csv'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'neomake/neomake'
   Plug 'sebdah/vim-delve'
@@ -21,24 +36,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-jdaddy'
   Plug 'tpope/vim-rails'
-  Plug 'PotatoesMaster/i3-vim-syntax'
   Plug 'tpope/vim-repeat'
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-unimpaired'
-  Plug 'Shougo/vimshell'
-  Plug 'Shougo/vimproc'
-  Plug 'chrisbra/Colorizer'
-  Plug 'ervandew/supertab'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'mechatroner/rainbow_csv'
-  Plug 'frazrepo/vim-rainbow'
-  Plug 'amadeus/vim-convert-color-to'
-  Plug 'autozimu/LanguageClient-neovim', {
-      \ 'branch': 'next',
-      \ 'do': 'bash install.sh',
-      \ }
-  Plug '/usr/bin/fzf'
-  Plug 'junegunn/fzf'
 call plug#end()
 
 " vim-rainbow parentheses
@@ -73,6 +74,7 @@ let g:go_info_mode='gopls'
 " LanguageCLient
 set hidden
 
+let g:LanguageCLient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
