@@ -76,7 +76,7 @@ let g:LanguageClient_autoStart = 1
 
 let g:LanguageCLient_autoStart = 1
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'rust': ['rustup', 'run', 'stable', 'rls'],
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ 'go': ['gopls'],
     \ }
@@ -321,7 +321,7 @@ let g:elm_format_autosave = 0
   " delete trailing space
   autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.rst,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json :%s/\v\s+$//e
   " autoformat Go files on save
-  autocmd BufWritePre *.go :call LanguageClient#textDocument_formatting_sync()
+  autocmd BufWritePre *.go,*.rs :call LanguageClient#textDocument_formatting_sync()
   " cleans git-related buffers opened by fugitive plugin
   autocmd BufReadPost fugitive://* set bufhidden=delete
   " maps `..` to going level up in a fugitive representation of git tree
