@@ -1,11 +1,15 @@
 #!/bin/bash
 
 if [ -z "$1" ]; then
-	echo "enter the name of the computer: gna, gnlap, home"
-	exit 1
+	echo "enter the name of the computer:"
+  select host in gnlap gna home
+  do
+    break
+  done
+else
+  host=${1}
 fi
 
-host=${1}
 
 # font=latarcyrheb-sun32
 font=ter-124b
