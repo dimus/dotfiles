@@ -165,6 +165,8 @@ rm -f ~/bin/trim
 ln -s ~/src/dotfiles/unix/bin/trim ~/bin/trim
 rm ~/.config/liquidpromptrc
 ln -s ~/src/dotfiles/arch/.config/liquidpromptrc ~/.config/liquidpromptrc
+rm -f ~/bin/weather
+ln -s ~/src/dotfiles/unix/bin/weather ~/bin/weather
 
 sudo rm -f /etc/bash_completion.d/btrfs-completion.bash
 sudo cp ~/src/dotfiles/arch/btrfs-completion.bash /etc/bash_completion.d
