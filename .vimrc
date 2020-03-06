@@ -25,6 +25,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'junegunn/fzf'
   Plug 'kana/vim-textobj-user'
   Plug 'mechatroner/rainbow_csv'
+  Plug 'mzlogin/vim-markdown-toc'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'neomake/neomake'
   Plug 'sebdah/vim-delve'
