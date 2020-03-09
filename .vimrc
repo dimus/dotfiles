@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mzlogin/vim-markdown-toc'
   Plug 'nelstrom/vim-textobj-rubyblock'
   Plug 'neomake/neomake'
+  Plug 'pest-parser/pest.vim'
   Plug 'sebdah/vim-delve'
   Plug 'tomtom/tcomment_vim'
   Plug 'tpope/vim-dispatch'

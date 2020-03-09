@@ -39,6 +39,9 @@ alias sys="sudo systemctl"
 alias sysu="systemctl --user"
 alias btrfs="sudo btrfs"
 alias sn="sudo snapper"
+alias cb="cargo build"
+alias ct="cargo test"
+alias cr="cargo run --"
 
 if [ -f $HOME/.bash_aliases_local ]; then
   source $HOME/.bash_aliases_local
