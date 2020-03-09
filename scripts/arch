@@ -73,7 +73,7 @@ sudo /usr/bin/pacman -S --noconfirm --needed ntp tldr python-pip neovim broadcom
 sudo /usr/bin/pacman -S --noconfirm --needed mlocate bluez bluez-utils xz nvme-cli #bluetooth
 sudo /usr/bin/pacman -S --noconfirm --needed nmap htop iotop iftop powertop nmap parallel tmux rsync net-tools udisks2
 sudo /usr/bin/pacman -S --noconfirm --needed wget zip unzip alsa-utils pulseaudio-alsa pulseaudio pulsemixer pulseaudio-bluetooth pulseaudio-equalizer mpd mpc avahi cups btrfs-progs snapper snap-pac fzf
-sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bash-completion
+sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bash-completion exa
 
 sudo systemctl start bluetooth.service
 sudo systemctl enable ntpdate.service
