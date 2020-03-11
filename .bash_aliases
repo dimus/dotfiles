@@ -42,6 +42,7 @@ alias sn="sudo snapper"
 alias cb="cargo build"
 alias ct="cargo test"
 alias cr="cargo run --"
+alias scr="sudo btrfs scrub status /"
 
 if [ -f $HOME/.bash_aliases_local ]; then
   source $HOME/.bash_aliases_local
