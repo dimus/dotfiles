@@ -40,8 +40,9 @@ alias sysu="systemctl --user"
 alias btrfs="sudo btrfs"
 alias sn="sudo snapper"
 alias cb="cargo build"
-alias ct="cargo test"
+alias ct="cargo test --"
 alias cr="cargo run --"
+alias cw="cargo watch -x"
 alias scr="sudo btrfs scrub status /"
 
 if [ -f $HOME/.bash_aliases_local ]; then
