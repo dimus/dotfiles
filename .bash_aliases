@@ -26,7 +26,6 @@ alias kec="kubectl exec -itc "
 alias gitdel="git remote prune origin && git br |grep -v master |xargs -I {} git branch -D `$HOME/bin/trim {}`"
 alias dimus="gpg -d ~/Dropbox/important/dimus.asc"
 alias down="sudo shutdown -h now"
-alias r="ranger"
 alias v=vicd
 alias vv=vifm
 alias vi="nvim"
@@ -44,6 +43,7 @@ alias ct="cargo test --"
 alias cr="cargo run --"
 alias cw="cargo watch -x"
 alias scr="sudo btrfs scrub status /"
+alias re="rustc --explain"
 
 if [ -f $HOME/.bash_aliases_local ]; then
   source $HOME/.bash_aliases_local
