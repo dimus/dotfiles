@@ -3,43 +3,41 @@
 
 " Plugins {
 call plug#begin('~/.vim/plugged')
-  Plug 'ElmCast/elm-vim'
-  Plug 'PotatoesMaster/i3-vim-syntax'
+  Plug 'ElmCast/elm-vim' " Elm plugin
+  Plug 'PotatoesMaster/i3-vim-syntax' " syntax highlighting for i3
   Plug 'Shougo/vimproc'
   Plug 'Shougo/vimshell'
-  Plug 'SirVer/ultisnips'
+  Plug 'SirVer/ultisnips' " snippets
   Plug 'amadeus/vim-convert-color-to'
-  Plug 'autozimu/LanguageClient-neovim', {
+  Plug 'autozimu/LanguageClient-neovim', { " language client
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
       \ }
-  Plug 'cespare/vim-toml'
-  Plug 'chr4/nginx.vim'
-  Plug 'chrisbra/Colorizer'
-  Plug 'ervandew/supertab'
-  Plug 'fatih/vim-go'
+  Plug 'cespare/vim-toml' " syntax highlighting for toml files
+  Plug 'chr4/nginx.vim' " syntax highlight for nginx
+  Plug 'chrisbra/Colorizer' " show color of color codes
+  Plug 'ervandew/supertab' " autocomplete with tab
+  Plug 'fatih/vim-go' " go plugin
   Plug 'frazrepo/vim-rainbow'
-  Plug 'git@github.com:dimus/vim-snippets'
-  Plug 'git@github.com:vim-airline/vim-airline.git'
-  Plug '/usr/bin/fzf'
-  Plug 'junegunn/fzf'
+  Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
+  Plug 'git@github.com:vim-airline/vim-airline.git' " pretty status bar
+  Plug '/usr/bin/fzf' " fuzzy search
+  Plug 'junegunn/fzf' " fuzzy search
   Plug 'kana/vim-textobj-user'
-  Plug 'mechatroner/rainbow_csv'
-  Plug 'mzlogin/vim-markdown-toc'
-  Plug 'nelstrom/vim-textobj-rubyblock'
-  Plug 'neomake/neomake'
-  Plug 'pest-parser/pest.vim'
-  Plug 'sebdah/vim-delve'
-  Plug 'tomtom/tcomment_vim'
-  Plug 'tpope/vim-dispatch'
-  Plug 'tpope/vim-eunuch'
-  Plug 'tpope/vim-fugitive'
-  Plug 'tpope/vim-jdaddy'
-  Plug 'tpope/vim-rails'
-  Plug 'tpope/vim-repeat'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-unimpaired'
-  Plug 'vim-airline/vim-airline-themes'
+  Plug 'mechatroner/rainbow_csv' " color csv fields
+  Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
+  Plug 'neomake/neomake' " linting on save
+  Plug 'pest-parser/pest.vim' " syntax highlighting for pest parser
+  Plug 'sebdah/vim-delve' " go debugger
+  Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
+  Plug 'tpope/vim-dispatch' " Runs tests, builds in the background
+  Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
+  Plug 'tpope/vim-fugitive' " git
+  Plug 'tpope/vim-jdaddy' " json manipulation + pretty-printing
+  Plug 'tpope/vim-repeat' " add . command to some plugins
+  Plug 'tpope/vim-surround' " surround something with characters like )]} etc.
+  Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
+  Plug 'vim-airline/vim-airline-themes' " pretty status bar
 call plug#end()
 
 " vim-rainbow parentheses
