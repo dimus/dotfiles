@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'Shougo/vimshell'
   Plug 'SirVer/ultisnips' " snippets
   Plug 'amadeus/vim-convert-color-to'
-  Plug 'autozimu/LanguageClient-neovim', { " language client
+  Plug 'autozimu/LanguageClient-neovim', {
       \ 'branch': 'next',
       \ 'do': 'bash install.sh',
       \ }
