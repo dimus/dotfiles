@@ -146,6 +146,8 @@ sudo /usr/bin/pacman -S --noconfirm --needed youtube-dl jq vlc
 # sudo ln -s ~/src/dotfiles/arch/90-capslock-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
 # sudo ln -s ~/src/dotfiles/arch/95-layout-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
 
+
+sudo sed -i 's/kterm|gnome/kterm|alacritty|gnome/' /etc/bash.bashrc
 mkdir -p $HOME/Pictures/ScreenShoots
 rm -f ~/.xinitrc
 ln -s ~/src/dotfiles/arch/.xinitrc ~
