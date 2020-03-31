@@ -20,7 +20,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go' " go plugin
   Plug 'frazrepo/vim-rainbow'
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
-  Plug 'git@github.com:vim-airline/vim-airline.git' " pretty status bar
   Plug '/usr/bin/fzf' " fuzzy search
   Plug 'junegunn/fzf' " fuzzy search
   Plug 'kana/vim-textobj-user'
@@ -37,7 +36,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-repeat' " add . command to some plugins
   Plug 'tpope/vim-surround' " surround something with characters like )]} etc.
   Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
-  Plug 'vim-airline/vim-airline-themes' " pretty status bar
+  Plug 'itchyny/lightline.vim' " status bar
 call plug#end()
 
 " vim-rainbow parentheses
@@ -92,14 +91,16 @@ set wildignore+=bin/*,*/target/*,*.o,*.hi,*.class,*.pdf,*.jpg
 let g:ctrlp_custom_ignore = '\v[\/](\.(git|stack-work)|coverage|elm-stuff)$'
 
 " UltiSnips
-  nmap <F1> <nop>
-  imap <F1> <nop>
-  let g:UltiSnipsExpandTrigger="<F1>"
-  let g:UltiSnipsJumpForwardTrigger="<c-b>"
-  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+nmap <F1> <nop>
+imap <F1> <nop>
+let g:UltiSnipsExpandTrigger="<F1>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" Airline Plugin
-  let g:airline_powerline_fonts = 1
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat'
+      \}
 
 " Neomake
 autocmd! BufWritePost * Neomake
