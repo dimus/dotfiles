@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
       \ 'do': 'bash install.sh',
       \ }
   Plug 'cespare/vim-toml' " syntax highlighting for toml files
+  Plug 'jparise/vim-graphql' "graphql syntax and file detection
   Plug 'chr4/nginx.vim' " syntax highlight for nginx
   Plug 'chrisbra/Colorizer' " show color of color codes
   Plug 'ervandew/supertab' " autocomplete with tab
@@ -98,9 +99,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat'
-      \}
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat'
+"       \}
 
 " Neomake
 autocmd! BufWritePost * Neomake

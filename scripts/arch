@@ -136,7 +136,7 @@ fi
 
 ### Xorg and i3 ###
 
-sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool
+sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool xorg-xkill
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcmanfm xorg-xfontsel xorg-xlsfonts xorg-xprop
 sudo /usr/bin/pacman -S --noconfirm --needed ttf-hack xf86-input-wacom alacritty
 sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst conky compton unclutter
