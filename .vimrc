@@ -87,6 +87,9 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 " nnoremap <silent> <F8> :call LanguageClient#textDocument_rename()<CR>
 
+" pgsql plugin for sql queries
+let g:sql_type_default = 'pgsql'
+
 " CtrlP Plugin
 let g:ctrlp_show_hidden = 1
 set wildignore+=bin/*,*/target/*,*.o,*.hi,*.class,*.pdf,*.jpg
