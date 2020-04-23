@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug '/usr/bin/fzf' " fuzzy search
   Plug 'junegunn/fzf' " fuzzy search
   Plug 'kana/vim-textobj-user'
+  Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
   Plug 'neomake/neomake' " linting on save
@@ -308,7 +309,7 @@ let g:elm_format_autosave = 0
   " allows to save buffer with sudo
   command! W w !sudo tee % >/dev/null
   " delete trailing space
-  autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.rst,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json :%s/\v\s+$//e
+  autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json,*.rs :%s/\v\s+$//e
   " autoformat Go files on save
   autocmd BufWritePre *.go,*.rs :call LanguageClient#textDocument_formatting_sync()
   " cleans git-related buffers opened by fugitive plugin

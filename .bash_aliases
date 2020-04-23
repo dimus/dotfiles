@@ -3,6 +3,7 @@
 # alias l='ls $LS_OPTIONS -lAhF'
 alias cd..="cd .."
 alias sshx="ssh -X"
+alias ssh="TERM=xterm-256color ssh"
 alias ggr='git grep -n --color'
 alias grdebug='git grep -n --color -l "^ *debugger"| grep -v vendor'
 alias be="bundle exec"
