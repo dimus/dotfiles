@@ -1,4 +1,4 @@
 #!/bin/bash
 
-nordvpn connect US
+nordvpn connect Canada
 
