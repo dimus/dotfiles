@@ -21,10 +21,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go' " go plugin
   Plug 'frazrepo/vim-rainbow'
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
-  Plug '/usr/bin/fzf' " fuzzy search
-  Plug 'junegunn/fzf' " fuzzy search
+  Plug 'junegunn/fzf.vim' " fuzzy search
   Plug 'kana/vim-textobj-user'
   Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
+  Plug 'machakann/vim-highlightedyank' " highlights yank command
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
   Plug 'neomake/neomake' " linting on save
@@ -79,6 +79,11 @@ let g:LanguageClient_serverCommands = {
     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
     \ 'go': ['gopls'],
     \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'rust': ['rust-analyzer'],
+"     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+"     \ 'go': ['gopls'],
+"     \ }
 let g:LanguageClient_diagnosticsEnable = 0
 nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
@@ -178,7 +183,8 @@ let g:elm_format_autosave = 0
   " faster escape
   inoremap jk <esc>
   " fuzzy search for file
-  nnoremap <C-p> :FZF<CR>
+  nnoremap <C-p> :Files<CR>
+  nnoremap <leader>; :Buffers<CR>
   " visual select for one line
   noremap vv ^vg
     " map R :!ruby % <cr>
