@@ -127,7 +127,7 @@ vicd()
 export EDITOR=/usr/bin/nvim
 export PSQL_EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
-export TERMINAL=urxvt
+export TERMINAL=alacritty
 
 export GOPATH=$HOME/go
 export GOROOT=/usr/lib/go
@@ -151,3 +151,11 @@ eval "$(rbenv init -)"
 . /etc/profile.d/autojump.bash
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")" 
+
+eval "$(starship init bash)"
