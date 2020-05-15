@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'fatih/vim-go' " go plugin
   Plug 'frazrepo/vim-rainbow'
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim' " fuzzy search
   Plug 'kana/vim-textobj-user'
   Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
