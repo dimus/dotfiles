@@ -17,7 +17,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'jparise/vim-graphql' "graphql syntax and file detection
   Plug 'chr4/nginx.vim' " syntax highlight for nginx
   Plug 'chrisbra/Colorizer' " show color of color codes
-  Plug 'chriskempson/base16-vim' " base16 colors
+  " Plug 'chriskempson/base16-vim' " base16 colors
   " Plug 'ervandew/supertab' " autocomplete with tab
   " Plug 'fatih/vim-go' " go plugin
   Plug 'frazrepo/vim-rainbow'
@@ -160,7 +160,7 @@ let g:elm_format_autosave = 0
   set visualbell " makes visual bell instead of sound
   set noerrorbells " no beep on errors
   set t_Co=256 " 256 colors in vim
-  let base16colorspace=256
+  " let base16colorspace=256
   set lazyredraw " remove lag: makes vertical scrolling faster
 
   set ts=2            " makes tabulation to work as 2 spaces
@@ -308,7 +308,7 @@ let g:elm_format_autosave = 0
 " }
 
 " Colors {
-  colorscheme base16-irblack
+  colorscheme jellybeans
   " 80 column border is grey
   hi ColorColumn ctermbg=236 guibg=#303030
   " trailing spaces are red
@@ -463,7 +463,7 @@ au BufRead /tmp/psql.edit.* set syntax=sql
 " Coc Settings
 "===============================================================================
 " Give more space for displaying messages.
-set cmdheight=2
+set cmdheight=1
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
