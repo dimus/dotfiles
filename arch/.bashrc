@@ -132,6 +132,7 @@ export TERMINAL=alacritty
 export GOPATH=$HOME/go
 export GOROOT=/usr/lib/go
 export GOBIN=$HOME/go/bin
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
 export MPD_HOST=0.0.0.0
 
