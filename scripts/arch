@@ -141,7 +141,7 @@ sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcman
 sudo /usr/bin/pacman -S --noconfirm --needed ttf-hack xf86-input-wacom alacritty
 sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst conky compton unclutter
 sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox firefox-i18n-en-us chromium gimp powerline
-sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code 
+sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code
 sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol noto-fonts-emoji
 sudo /usr/bin/pakman -S --noconfirm --needed adobe-source-han-serif-otc-fonts adobe-source-han-sans-otc-fonts
 sudo /usr/bin/pacman -S --noconfirm --needed youtube-dl jq vlc
