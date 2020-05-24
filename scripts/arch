@@ -144,7 +144,7 @@ sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox
 sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code
 sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol noto-fonts-emoji
 sudo /usr/bin/pakman -S --noconfirm --needed adobe-source-han-serif-otc-fonts adobe-source-han-sans-otc-fonts
-sudo /usr/bin/pacman -S --noconfirm --needed youtube-dl jq vlc
+sudo /usr/bin/pacman -S --noconfirm --needed youtube-dl jq vlc kakoune
 # do not use powerline-fonts
 # sudo ln -s ~/src/dotfiles/arch/90-capslock-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
 # sudo ln -s ~/src/dotfiles/arch/95-layout-kbd.conf /etc/X11/xorg.conf.d/ 2> /dev/null
@@ -166,6 +166,10 @@ rm -rf ~/.config/dunst
 ln -s ~/src/dotfiles/arch/.config/dunst ~/.config/dunst
 rm -rf ~/.config/alacritty
 ln -s ~/src/dotfiles/arch/.config/alacritty ~/.config/alacritty
+rm -rf ~/.config/kak
+ln -s ~/src/dotfiles/arch/.config/kak ~/.config/kak
+rm -rf ~/.config/kak-lsp
+ln -s ~/src/dotfiles/arch/.config/kak-lsp ~/.config/kak-lsp
 rm -f ~/bin/disp
 ln -s ~/src/dotfiles/arch/${host}/disp ~/bin/disp
 rm -f ~/bin/solti
