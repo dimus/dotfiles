@@ -1,6 +1,7 @@
 .vim/.netrwhist*
 .vim/spell/*
 .vim/plugged/*
+.vim/undodir/*
 *.swp
 *~
 */repo.yml

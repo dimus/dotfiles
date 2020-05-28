@@ -3,41 +3,28 @@
 
 " Plugins {
 call plug#begin('~/.vim/plugged')
-  Plug 'ElmCast/elm-vim' " Elm plugin
+" highlight
   Plug 'PotatoesMaster/i3-vim-syntax' " syntax highlighting for i3
-  Plug 'Shougo/vimproc'
-  Plug 'Shougo/vimshell'
-  Plug 'SirVer/ultisnips' " snippets
-  Plug 'amadeus/vim-convert-color-to'
-  " Plug 'autozimu/LanguageClient-neovim', {
-  "     \ 'branch': 'next',
-  "     \ 'do': 'bash install.sh',
-  "     \ }
   Plug 'cespare/vim-toml' " syntax highlighting for toml files
-  Plug 'jparise/vim-graphql' "graphql syntax and file detection
   Plug 'chr4/nginx.vim' " syntax highlight for nginx
+  Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
+  Plug 'jparise/vim-graphql' "graphql syntax and file detection
+  Plug 'pest-parser/pest.vim' " syntax highlighting for pest parser
+" other
+  Plug 'SirVer/ultisnips' " snippets
   Plug 'chrisbra/Colorizer' " show color of color codes
-  " Plug 'chriskempson/base16-vim' " base16 colors
-  " Plug 'ervandew/supertab' " autocomplete with tab
-  " Plug 'fatih/vim-go' " go plugin
-  Plug 'frazrepo/vim-rainbow'
+  Plug 'frazrepo/vim-rainbow' " colorize brackets
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim' " fuzzy search
-  Plug 'kana/vim-textobj-user'
-  Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
   Plug 'machakann/vim-highlightedyank' " highlights yank command
+  Plug 'mbbill/undotree' " nonlinear undo UI
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
   Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neomake/neomake' " linting on save
-  Plug 'pest-parser/pest.vim' " syntax highlighting for pest parser
-  Plug 'sebdah/vim-delve' " go debugger
   Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
-  Plug 'tpope/vim-dispatch' " Runs tests, builds in the background
   Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
   Plug 'tpope/vim-fugitive' " git
-  Plug 'tpope/vim-jdaddy' " json manipulation + pretty-printing
   Plug 'tpope/vim-repeat' " add . command to some plugins
   Plug 'tpope/vim-surround' " surround something with characters like )]} etc.
   Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
@@ -47,53 +34,6 @@ call plug#end()
 " vim-rainbow parentheses
 
 let g:rainbow_active = 1
-" to do fine-grain:
-" au FileType go,c,cpp,objc,objcpp call rainbow#load()
-
-" Go Plugin
-" autocmd FileType go nmap <leader>b  <Plug>(go-build)
-" function! s:build_go_files()
-"   let l:file = expand('%')
-"   if l:file =~# '^\f\+_test\.go$'
-"     call go#test#Test(0, 1)
-"   elseif l:file =~# '^\f\+\.go$'
-"     call go#cmd#Build(0)
-"   endif
-" endfunction
-"
-" set autowrite
-" let g:go_fmt_command = "goimports"
-" let g:go_def_mapping_enabled = 0
-" autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
-" autocmd FileType go nmap <leader>r  <Plug>(go-run)
-" autocmd FileType go nmap <leader>t  <Plug>(go-test)
-" autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
-" autocmd Filetype go command! -bang Alt call go#alternate#Switch(<bang>0, 'edit')
-
-" let g:go_def_mode='gopls'
-" let g:go_info_mode='gopls'
-"
-" " LanguageCLient
-" let g:LanguageClient_autoStart = 1
-"
-" let g:LanguageCLient_autoStart = 1
-" let g:LanguageClient_serverCommands = {
-"     \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-"     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-"     \ 'go': ['gopls'],
-"     \ }
-" " let g:LanguageClient_serverCommands = {
-" "     \ 'rust': ['rust-analyzer'],
-" "     \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
-" "     \ 'go': ['gopls'],
-" "     \ }
-" let g:LanguageClient_diagnosticsEnable = 0
-" nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" " Or map each action separately
-" nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-" nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-" " nnoremap <silent> <F8> :call LanguageClient#textDocument_rename()<CR>
 
 " pgsql plugin for sql queries
 let g:sql_type_default = 'pgsql'
@@ -117,12 +57,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Neomake
 autocmd! BufWritePost * Neomake
-
-" elm
-let g:elm_detailed_complete = 0
-let g:elm_format_autosave = 0
-
-" }
 
 " General {
 
@@ -175,6 +109,8 @@ let g:elm_format_autosave = 0
   set smarttab
   set colorcolumn=81
   set nospell
+  set undodir=~/.vim/undodir
+  set undofile
 " }
 
 " Clipboard {
@@ -309,6 +245,8 @@ let g:elm_format_autosave = 0
 
 " Colors {
   colorscheme jellybeans
+  set background=dark
+
   " 80 column border is grey
   hi ColorColumn ctermbg=236 guibg=#303030
   " trailing spaces are red
@@ -381,12 +319,12 @@ set numberwidth=3 " to save space
   " nnoremap k gk
   nnoremap $ g$
   nnoremap 0 g0
+  nnoremap <leader>u :UndotreeShow<CR>
 " }
 
 " Search {
   set nohls "no highlights for search
   set incsearch "search incrementally
-  set ignorecase smartcase " ignore case if only small case letters are in search pattern
 " }
 
 " Tmux-like Mappings {
