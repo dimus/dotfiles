@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
   Plug 'jparise/vim-graphql' "graphql syntax and file detection
   Plug 'pest-parser/pest.vim' " syntax highlighting for pest parser
+  Plug 'gruvbox-community/gruvbox' " colorscheme
 " other
   Plug 'SirVer/ultisnips' " snippets
   Plug 'chrisbra/Colorizer' " show color of color codes
@@ -56,7 +57,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 "       \}
 
 " Neomake
-autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost * Neomake
 
 " General {
 
@@ -244,8 +245,10 @@ autocmd! BufWritePost * Neomake
 " }
 
 " Colors {
-  colorscheme jellybeans
-  set background=dark
+  " colorscheme jellybeans
+  autocmd ColorScheme * highlight Normal ctermbg=black
+  autocmd ColorScheme * highlight NonText ctermbg=black
+  colorscheme gruvbox
 
   " 80 column border is grey
   hi ColorColumn ctermbg=236 guibg=#303030
