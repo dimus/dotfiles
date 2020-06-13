@@ -10,6 +10,8 @@
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Util.Run
+import XMonad.Util.SpawnOnce
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
@@ -250,7 +252,9 @@ myStartupHook = return ()
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main = xmonad defaults
+main = do
+  xmproc <- spawnPipe "xmobar -x 0 /home/dimus/.config/xmobar/xmobar.hs"
+  xmonad defaults
 
 -- A structure containing your configuration settings, overriding
 -- fields in the default config. Any you don't override, will
