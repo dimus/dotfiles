@@ -6,5 +6,5 @@ if [[ ${disps} =~ 'DP-1 connected' ]]; then
   /usr/bin/xrandr --output DP1 --mode 3440x1440 --primary
   /usr/bin/xrandr --output eDP1 --mode 1600x900 --rotate left --right-of DP1
 else
-  /usr/bin/xrandr --output eDP1 --mode 1600x900 --rotate normal
+  /usr/bin/xrandr --output eDP1 --mode 1920x1200 --rotate normal
 fi

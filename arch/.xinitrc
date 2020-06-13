@@ -38,5 +38,6 @@ ssh-add
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
 compton -b
 urxvtd -q -f -o
+xmonad
 # exec i3 --shmlog-size=26214400
-exec i3
+# exec i3
