@@ -181,6 +181,10 @@ rm ~/.config/liquidpromptrc
 ln -s ~/src/dotfiles/arch/.config/liquidpromptrc ~/.config/liquidpromptrc
 rm -f ~/bin/weather
 ln -s ~/src/dotfiles/unix/bin/weather ~/bin/weather
+rm -rf ~/.xmonad
+ln -s ~/src/dotfiles/.xmonad ~/.xmonad
+rm -rf ~/.config/xmobar
+ln -s ~/src/dotfiles/arch/.config/xmobar ~/.config/xmobar
 
 sudo rm -f /etc/bash_completion.d/btrfs-completion.bash
 sudo cp ~/src/dotfiles/arch/btrfs-completion.bash /etc/bash_completion.d
