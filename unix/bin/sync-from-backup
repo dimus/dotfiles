@@ -1,3 +1,5 @@
 #!/bin/sh
 
-rsync -Pav --delete --exclude bin/* --exclude Downloads/* --exclude 'tmp/*' --exclude '.cache/*' syn:/volume1/backups/computers/aero/home/dimus/ /home/dimus
+# rsync -Pav --delete --exclude bin/* --exclude Downloads/* --exclude 'tmp/*' --exclude '.cache/*' syn:/volume1/backups/computers/aero/home/dimus/ /home/dimus
+rsync -Pav --delete syn:/volume1/backups/computers/aero/home/dimus/Dropbox /home/dimus
+rsync -Pav --delete syn:/volume1/backups/computers/aero/home/music /home

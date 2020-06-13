@@ -1,7 +1,7 @@
 Config {
 
    -- appearance
-     font =         "xft:FiraMono Nerd Font:size=14:bold:antialias=true"
+     font =         "xft:FiraMono Nerd Font:size=16:bold:antialias=true"
    , bgColor =      "black"
    , fgColor =      "#646464"
    , position =     Top
@@ -11,7 +11,7 @@ Config {
    -- layout
    , sepChar =  "%"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %RJTT% | %date% || %kbd% "
+   , template = "%battery% | %multicpu% | %coretemp% | %memory% | %dynnetwork% }{ %date%"
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -45,7 +45,7 @@ Config {
         , Run DynNetwork     [ "--template" , "<dev>: <tx>kB/s|<rx>kB/s"
                              , "--Low"      , "1000"       -- units: B/s
                              , "--High"     , "5000"       -- units: B/s
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "green"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
@@ -54,7 +54,7 @@ Config {
         , Run MultiCpu       [ "--template" , "Cpu: <total0>%|<total1>%"
                              , "--Low"      , "50"         -- units: %
                              , "--High"     , "85"         -- units: %
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "green"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
@@ -63,7 +63,7 @@ Config {
         , Run CoreTemp       [ "--template" , "Temp: <core0>°C|<core1>°C"
                              , "--Low"      , "70"        -- units: °C
                              , "--High"     , "80"        -- units: °C
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "green"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 50
@@ -72,18 +72,18 @@ Config {
         , Run Memory         [ "--template" ,"Mem: <usedratio>%"
                              , "--Low"      , "20"        -- units: %
                              , "--High"     , "90"        -- units: %
-                             , "--low"      , "darkgreen"
+                             , "--low"      , "green"
                              , "--normal"   , "darkorange"
                              , "--high"     , "darkred"
                              ] 10
 
         -- battery monitor
-        , Run Battery        [ "--template" , "Batt: <acstatus>"
+        , Run Battery        [ "--template" , " <acstatus>"
                              , "--Low"      , "10"        -- units: %
                              , "--High"     , "80"        -- units: %
                              , "--low"      , "darkred"
                              , "--normal"   , "darkorange"
-                             , "--high"     , "darkgreen"
+                             , "--high"     , "green"
 
                              , "--" -- battery specific options
                                        -- discharging status
@@ -96,7 +96,8 @@ Config {
 
         -- time and date indicator
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
-        , Run Date           "<fc=#ABABAB>%F (%a) %T</fc>" "date" 10
+        -- follows strftime C format
+        , Run Date           "<fc=#ABABAB>%D %a %T</fc>" "date" 10
 
         -- keyboard layout indicator
         , Run Kbd            [ ("us(dvorak)" , "<fc=#00008B>DV</fc>")
