@@ -148,7 +148,7 @@ source $HOME/git-completion.bash
 
 eval "$(rbenv init -)"
 
-. ~/src/liquidprompt/liquidprompt
+# . ~/src/liquidprompt/liquidprompt
 . /etc/profile.d/autojump.bash
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
