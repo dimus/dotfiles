@@ -97,8 +97,7 @@ font:
     #   - (Linux/BSD) monospace
     #   - (Windows) Consolas
     #family: monospace
-    family: Hack
-    # family: Mononoki Nerd Font
+    family: Hack Nerd Font # family: Mononoki Nerd Font
     # family: Fira Code Nerd Font
     # family: xos4 Terminus
     # family: FiraMono Nerd Font

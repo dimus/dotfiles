@@ -38,6 +38,7 @@ ssh-add
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
 compton -b
 urxvtd -q -f -o
+setxkbmap -option 'ctrl:nocaps' -option 'grp:alt_space_toggle' -layout us,ru -variant ,mac
 xmonad
 # exec i3 --shmlog-size=26214400
 # exec i3

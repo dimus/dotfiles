@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rsync -Pav --delete --exclude bin/* --exclude Downloads/* --exclude 'tmp/*' --exclude '.cache/*' syn:/volume1/backups/computers/aero/home/dimus/ /home/dimus

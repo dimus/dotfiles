@@ -218,6 +218,7 @@ echo "blacklist pcspkr" | sudo tee /etc/modprobe.d/nobeep.conf > /dev/null
 rm -rf ~/.config/systemd
 cp -r ~/src/dotfiles/arch/.config/systemd ~/.config
 cp  ~/src/dotfiles/unix/bin/bkup ~/bin
+cp ~/src/dotfiles/unix/bin/sync-from-backup ~/bin
 mv ~/.config/systemd/user/bkup.timer ~/.config/systemd/user/bkup-${user}.timer
 mv ~/.config/systemd/user/bkup.service ~/.config/systemd/user/bkup-${user}.service
 sed -i "s/USER/$USER/" ~/.config/systemd/user/feh.service
