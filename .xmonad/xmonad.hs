@@ -2,14 +2,14 @@
 -- xmonad example config file.
 --
 -- A template showing all available configuration hooks,
--- and how to override the defaults in your own xmonad.hs conf file.
---
+-- and how to override the defaults in your own xmonad.hs conf file.  --
 -- Normally, you'd only override those defaults you care about.
 --
 
 import XMonad
 import Data.Monoid
 import System.Exit
+import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
@@ -53,6 +53,7 @@ myModMask       = mod4Mask
 --
 myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
+
 -- Border colors for unfocused and focused windows, respectively.
 --
 myNormalBorderColor  = "#dddddd"
@@ -64,7 +65,7 @@ myFocusedBorderColor = "#ff0000"
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch a terminal
-    [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
+    [ ((modm, xK_Return), spawn $ XMonad.terminal conf)
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
@@ -97,7 +98,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_m     ), windows W.focusMaster  )
 
     -- Swap the focused window and the master window
-    , ((modm,               xK_Return), windows W.swapMaster)
+    -- , ((modm,               xK_Return), windows W.swapMaster)
 
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -240,7 +241,7 @@ myEventHook = mempty
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+-- myLogHook = return ()
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -276,16 +277,8 @@ myScratchpads = [ NS "calc" spawnCalc findCalc defaultFloating ]
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  xmproc <- spawnPipe "xmobar -x 0 /home/dimus/.config/xmobar/xmobar.hs"
-  xmonad $ docks defaults
-
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-defaults = def {
+  xmproc <- spawnPipe "xmobar -d /home/dimus/.config/xmobar/xmobarrc0"
+  xmonad $ docks def {
       -- simple stuff
         terminal           = myTerminal,
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -295,7 +288,6 @@ defaults = def {
         workspaces         = myWorkspaces,
         normalBorderColor  = myNormalBorderColor,
         focusedBorderColor = myFocusedBorderColor,
-
       -- key bindings
         keys               = myKeys,
         mouseBindings      = myMouseBindings,
@@ -304,7 +296,19 @@ defaults = def {
         layoutHook         = myLayout,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
-        logHook            = myLogHook,
+        -- logHook            = myLogHook,
+        logHook = dynamicLogWithPP xmobarPP
+                        { ppOutput = hPutStrLn xmproc
+                        , ppCurrent = xmobarColor "#c3e88d" "" . wrap "[" "]" -- Current workspace in xmobar
+                        , ppVisible = xmobarColor "#c3e88d" ""                -- Visible but not current workspace
+                        , ppHidden = xmobarColor "#82AAFF" ""   -- Hidden workspaces in xmobar
+                        -- , ppHiddenNoWindows = xmobarColor "#F07178" ""        -- Hidden workspaces (no windows)
+                        -- , ppSep =  "<fc=#666666> | </fc>"                     -- Separators in xmobar
+                        , ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!"  -- Urgent workspace
+                        -- , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
+                        , ppOrder  = \(ws:_:_:_) -> [ws]
+                        },
+
         startupHook        = myStartupHook
     }
 
@@ -313,9 +317,8 @@ help :: String
 help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "",
     "-- launching and killing programs",
-    "mod-Shift-Enter  Launch xterminal",
+    "mod-Enter  Launch xterminal",
     "mod-p            Launch dmenu",
-    "mod-Shift-p      Launch gmrun",
     "mod-Shift-c      Close/kill the focused window",
     "mod-Space        Rotate through the available layout algorithms",
     "mod-Shift-Space  Reset the layouts on the current workSpace to default",
@@ -329,7 +332,6 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "mod-m          Move focus to the master window",
     "",
     "-- modifying the window order",
-    "mod-Return   Swap the focused window and the master window",
     "mod-Shift-j  Swap the focused window with the next window",
     "mod-Shift-k  Swap the focused window with the previous window",
     "",
