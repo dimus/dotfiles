@@ -412,7 +412,7 @@ tabs     = renamed [Replace "tabs"]
            -- add spacing between window and tabs which looks bad.
            $ tabbed shrinkText myTabConfig
   where
-    myTabConfig = def { fontName            = "xft:FiraMono Nerd Font:regular:pixelsize=15"
+    myTabConfig = def { fontName            = "xft:FiraMono Nerd Font:regular:pixelsize=20"
                       , activeColor         = "#292d3e"
                       , inactiveColor       = "#3e445e"
                       , activeBorderColor   = "#292d3e"
