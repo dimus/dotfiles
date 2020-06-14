@@ -48,12 +48,15 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ThreeColumns
 
+-- Actions
+import XMonad.Actions.MouseResize
+
 ------------------------------------------------------------------------
 -- VARIABLES
 ------------------------------------------------------------------------
 
 myFont :: [Char]
-myFont = "xft:Mononoki Nerd Font:bold:pixelsize=13"
+myFont = "xft:FiraMono Nerd Font:bold:pixelsize=16"
 
 myModMask :: KeyMask
 myModMask = mod4Mask       -- Sets modkey to super/windows key
@@ -62,7 +65,7 @@ myTerminal :: [Char]
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBorderWidth :: Dimension
-myBorderWidth = 2         -- Sets border width for windows
+myBorderWidth = 0         -- Sets border width for windows
 
 -- Border colors for unfocused and focused windows, respectively.
 myNormalBorderColor  = "#dddddd"
@@ -135,7 +138,7 @@ dmXPKeymap = M.fromList $
 ------------------------------------------------------------------------
 dmXPConfig :: XPConfig
 dmXPConfig = def
-      { font                = "xft:FiraMono Nerd Font:size=15"
+      { font                = "xft:FiraMono Nerd Font:bold:size=15"
       , bgColor             = "#292d3e"
       , fgColor             = "#d0d0d0"
       , bgHLight            = "#c792ea"
@@ -300,33 +303,10 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
     -- you may also bind events to the mouse scroll wheel (button4 and button5)
     ]
 
-------------------------------------------------------------------------
--- Layouts:
-
--- You can specify and transform your layouts by modifying these values.
--- If you change layout bindings be sure to use 'mod-shift-space' after
--- restarting (with 'mod-q') to reset your layout state to the new
--- defaults, as xmonad preserves your old layout settings by default.
---
--- The available layouts.  Note that each layout is separated by |||,
--- which denotes layout choice.
---
-myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
-  where
-     -- default tiling algorithm partitions the screen into two panes
-     tiled   = Tall nmaster delta ratio
-
-     -- The default number of windows in the master pane
-     nmaster = 1
-
-     -- Default proportion of screen occupied by master pane
-     ratio   = 1/2
-
-     -- Percent of screen to increment by when resizing panes
-     delta   = 3/100
 
 ------------------------------------------------------------------------
--- Window rules:
+-- WINDOW RULES
+------------------------------------------------------------------------
 
 -- Execute arbitrary actions and WindowSet manipulations when managing
 -- a new window. You can use this to, for example, always float a
@@ -379,9 +359,86 @@ myEventHook = mempty
 -- By default, do nothing.
 myStartupHook = return ()
 
+------------------------------------------------------------------------
+-- LAYOUTS
+------------------------------------------------------------------------
+
+-- Makes setting the spacingRaw simpler to write. The spacingRaw
+-- module adds a configurable amount of space around windows.
+mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
+
+-- Below is a variation of the above except no borders are applied
+-- if fewer than two windows. So a single window has no gaps.
+mySpacing' :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
+mySpacing' i = spacingRaw True (Border i i i i) True (Border i i i i) True
+
+-- Defining a bunch of layouts, many that I don't use.
+tall     = renamed [Replace "tall"]
+           $ limitWindows 12
+           $ mySpacing 2
+           $ ResizableTall 1 (3/100) (1/2) []
+magnify  = renamed [Replace "magnify"]
+           $ magnifier
+           $ limitWindows 12
+           $ mySpacing 2
+           $ ResizableTall 1 (3/100) (1/2) []
+monocle  = renamed [Replace "monocle"]
+           $ limitWindows 20
+           $ Full
+floats   = renamed [Replace "floats"] $ limitWindows 20
+           $ simplestFloat
+grid     = renamed [Replace "grid"]
+           $ limitWindows 12
+           $ mySpacing 2
+           $ mkToggle (single MIRROR)
+           $ Grid (16/10)
+spirals  = renamed [Replace "spirals"]
+           $ mySpacing' 8
+           $ spiral (6/7)
+threeCol = renamed [Replace "threeCol"]
+           $ limitWindows 7
+           $ mySpacing' 1
+           $ ThreeCol 1 (3/100) (1/2)
+threeRow = renamed [Replace "threeRow"]
+           $ limitWindows 7
+           $ mySpacing' 1
+           -- Mirror takes a layout and rotates it by 90 degrees.
+           -- So we are applying Mirror to the ThreeCol layout.
+           $ Mirror
+           $ ThreeCol 1 (3/100) (1/2)
+tabs     = renamed [Replace "tabs"]
+           -- I cannot add spacing to this layout because it will
+           -- add spacing between window and tabs which looks bad.
+           $ tabbed shrinkText myTabConfig
+  where
+    myTabConfig = def { fontName            = "xft:FiraMono Nerd Font:regular:pixelsize=15"
+                      , activeColor         = "#292d3e"
+                      , inactiveColor       = "#3e445e"
+                      , activeBorderColor   = "#292d3e"
+                      , inactiveBorderColor = "#292d3e"
+                      , activeTextColor     = "#ffffff"
+                      , inactiveTextColor   = "#d0d0d0"
+                      }
+
+-- The layout hook
+myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
+               mkToggle (NBFULL ?? NOBORDERS ?? EOT) $ myDefaultLayout
+             where
+               -- I've commented out the layouts I don't use.
+               myDefaultLayout =     tall
+                                 -- ||| magnify
+                                 ||| noBorders monocle
+                                 -- ||| floats
+                                 -- ||| grid
+                                 ||| noBorders tabs
+                                 -- ||| spirals
+                                 -- ||| threeCol
+                                 -- ||| threeRow
+
 
 ------------------------------------------------------------------------
--- Scratchpads
+-- SCRATCHPADS
 ------------------------------------------------------------------------
 
 myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
@@ -429,7 +486,7 @@ main = do
         mouseBindings      = myMouseBindings,
 
       -- hooks, layouts
-        layoutHook         = myLayout,
+        layoutHook         = myLayoutHook,
         manageHook         = myManageHook,
         handleEventHook    = myEventHook,
         -- logHook            = myLogHook,
