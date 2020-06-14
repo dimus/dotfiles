@@ -4,7 +4,7 @@
 
 Config {
        -- appearance
-         font    = "xft:FiraMono Nerd Font:pixelsize=26:antialias=true:hinting=true"
+         font    = "xft:FiraMono Nerd Font:pixelsize=21:antialias=true:hinting=true"
        , additionalFonts = [ "xft:FontAwesome:pixelsize=16" ]
        , bgColor = "#282A36"
        , fgColor = "#B45BCF"
@@ -35,7 +35,7 @@ Config {
 
                                   , "--" -- battery specific options
                                        -- discharging status
-                                       , "-o"	, " <left>% (<timeleft>)"
+                                       , "-o"	, "  <left>% (<timeleft>)"
                                        -- AC "on" status
                                        , "-O"	, " <left>%"
                                        -- fully charged
