@@ -1,27 +1,81 @@
---
--- xmonad example config file.
---
--- A template showing all available configuration hooks,
--- and how to override the defaults in your own xmonad.hs conf file.  --
--- Normally, you'd only override those defaults you care about.
---
+------------------------------------------------------------------------
+-- IMPORTS
+------------------------------------------------------------------------
 
-import XMonad
+-- Data
 import Data.Monoid
+import Data.List
+
 import System.Exit
+import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
+-- Prompt
+import XMonad.Prompt
+import XMonad.Prompt.Input
+import XMonad.Prompt.Man
+import XMonad.Prompt.Pass
+import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.Ssh
+import XMonad.Prompt.XMonad
+import Control.Arrow (first)
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
--- The preferred terminal program, which is used in a binding below and by
--- certain contrib modules.
---
-myTerminal      = "alacritty"
+-- Layouts modifiers
+import XMonad.Layout.Decoration
+import XMonad.Layout.LayoutModifier
+import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
+import XMonad.Layout.Magnifier
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed (renamed, Rename(Replace))
+import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed
+import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
+import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
+
+-- Layouts
+import XMonad.Layout.GridVariants (Grid(Grid))
+import XMonad.Layout.SimplestFloat
+import XMonad.Layout.Spiral
+import XMonad.Layout.ResizableTile
+import XMonad.Layout.ThreeColumns
+
+------------------------------------------------------------------------
+-- VARIABLES
+------------------------------------------------------------------------
+
+myFont :: [Char]
+myFont = "xft:Mononoki Nerd Font:bold:pixelsize=13"
+
+myModMask :: KeyMask
+myModMask = mod4Mask       -- Sets modkey to super/windows key
+
+myTerminal :: [Char]
+myTerminal = "alacritty"   -- Sets default terminal
+
+myBorderWidth :: Dimension
+myBorderWidth = 2         -- Sets border width for windows
+
+-- Border colors for unfocused and focused windows, respectively.
+myNormalBorderColor  = "#dddddd"
+myFocusedBorderColor = "#700000"
+
+myNormColor :: [Char]
+myNormColor   = "#292d3e"  -- Border color of normal windows
+
+myFocusColor :: [Char]
+myFocusColor  = "#bbc5ff"  -- Border color of focused windows
+
+altMask :: KeyMask
+altMask = mod1Mask         -- Setting this for use in xprompts
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -31,41 +85,108 @@ myFocusFollowsMouse = True
 myClickJustFocuses :: Bool
 myClickJustFocuses = False
 
--- Width of the window border in pixels.
---
-myBorderWidth   = 0
-
--- modMask lets you specify which modkey you want to use. The default
--- is mod1Mask ("left alt").  You may also consider using mod3Mask
--- ("right alt"), which does not conflict with emacs keybindings. The
--- "windows key" is usually mod4Mask.
---
-myModMask       = mod4Mask
-
--- The default number of workspaces (virtual screens) and their names.
--- By default we use numeric strings, but any string may be used as a
--- workspace name. The number of workspaces is determined by the length
--- of this list.
---
--- A tagging example:
---
--- > workspaces = ["web", "irc", "code" ] ++ map show [4..9]
---
 myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 
 
--- Border colors for unfocused and focused windows, respectively.
---
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#ff0000"
+------------------------------------------------------------------------
+-- XPROMPT KEYMAP (emacs-like key bindings)
+------------------------------------------------------------------------
+dmXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
+dmXPKeymap = M.fromList $
+     map (first $ (,) controlMask)   -- control + <key>
+     [ (xK_z, killBefore)            -- kill line backwards
+     , (xK_k, killAfter)             -- kill line fowards
+     , (xK_a, startOfLine)           -- move to the beginning of the line
+     , (xK_e, endOfLine)             -- move to the end of the line
+     , (xK_m, deleteString Next)     -- delete a character foward
+     , (xK_b, moveCursor Prev)       -- move cursor forward
+     , (xK_f, moveCursor Next)       -- move cursor backward
+     , (xK_BackSpace, killWord Prev) -- kill the previous word
+     , (xK_y, pasteString)           -- paste a string
+     , (xK_g, quit)                  -- quit out of prompt
+     , (xK_bracketleft, quit)
+     ]
+     ++
+     map (first $ (,) altMask)       -- meta key + <key>
+     [ (xK_BackSpace, killWord Prev) -- kill the prev word
+     , (xK_f, moveWord Next)         -- move a word forward
+     , (xK_b, moveWord Prev)         -- move a word backward
+     , (xK_d, killWord Next)         -- kill the next word
+     , (xK_n, moveHistory W.focusUp')   -- move up thru history
+     , (xK_p, moveHistory W.focusDown') -- move down thru history
+     ]
+     ++
+     map (first $ (,) 0) -- <key>
+     [ (xK_Return, setSuccess True >> setDone True)
+     , (xK_KP_Enter, setSuccess True >> setDone True)
+     , (xK_BackSpace, deleteString Prev)
+     , (xK_Delete, deleteString Next)
+     , (xK_Left, moveCursor Prev)
+     , (xK_Right, moveCursor Next)
+     , (xK_Home, startOfLine)
+     , (xK_End, endOfLine)
+     , (xK_Down, moveHistory W.focusUp')
+     , (xK_Up, moveHistory W.focusDown')
+     , (xK_Escape, quit)
+     ]
+
+------------------------------------------------------------------------
+-- XPROMPT SETTINGS
+------------------------------------------------------------------------
+dmXPConfig :: XPConfig
+dmXPConfig = def
+      { font                = "xft:FiraMono Nerd Font:size=15"
+      , bgColor             = "#292d3e"
+      , fgColor             = "#d0d0d0"
+      , bgHLight            = "#c792ea"
+      , fgHLight            = "#000000"
+      , borderColor         = "#535974"
+      , promptBorderWidth   = 0
+      , promptKeymap        = dmXPKeymap
+      , position            = Top
+--    , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
+      , height              = 30
+      , historySize         = 256
+      , historyFilter       = id
+      , defaultText         = []
+      , autoComplete        = Just 100000  -- set Just 100000 for .1 sec
+      , showCompletionOnTab = False
+      , searchPredicate     = isPrefixOf
+      , alwaysHighlight     = True
+      , maxComplRows        = Just 5      -- set to Just 5 for 5 rows
+      }
+
+-- The same config minus the autocomplete feature which is annoying on
+-- certain Xprompts, like the search engine prompts.
+dmXPConfig' :: XPConfig
+dmXPConfig' = dmXPConfig
+      { autoComplete = Nothing
+      }
+
+-- A list of all of the standard Xmonad prompts
+promptList :: [(String, XPConfig -> X ())]
+promptList = [ ("m", manPrompt)          -- manpages prompt
+             , ("p", passPrompt)         -- get passwords (requires 'pass')
+             , ("g", passGeneratePrompt) -- generate passwords (requires 'pass')
+             , ("r", passRemovePrompt)   -- remove passwords (requires 'pass')
+             , ("s", sshPrompt)          -- ssh prompt
+             , ("x", xmonadPrompt)       -- xmonad prompt
+             ]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
---
+------------------------------------------------------------------------
+
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
-    -- launch a terminal
+    -- Open a terminal
     [ ((modm, xK_Return), spawn $ XMonad.terminal conf)
+
+    -- Run Prompt
+    , ((modm .|. shiftMask, xK_Return), shellPrompt dmXPConfig)   -- Shell Prompt
+
+    -- SSH Prompt
+    , ((modm .|. shiftMask, xK_s), sshPrompt dmXPConfig)   -- Shell Prompt
 
     -- launch dmenu
     , ((modm,               xK_p     ), spawn "dmenu_run")
@@ -136,9 +257,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
-    -- Scratchpads shortcuts
+    -- Scratchpads shortcutts
     , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
-    , ((modm,               xK_t     ), namedScratchpadAction myScratchpads "term")
+    , ((modm,               xK_z     ), namedScratchpadAction myScratchpads "term")
     ]
 
     ++
@@ -223,10 +344,11 @@ myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    , title =? "calc"               --> doFloat
-    , title =? "term"               --> doFloat
+    -- , title =? "calc"               --> doFloat
+    -- , title =? "term"               --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore ]
+    , resource  =? "kdesktop"       --> doIgnore
+    ] <+> namedScratchpadManageHook myScratchpads
 
 ------------------------------------------------------------------------
 -- Event handling
@@ -271,19 +393,19 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
     findCalc = title =? "calc"
     manageCalc = customFloating $ W.RationalRect l t w h
                  where
-                   h = 0.9
-                   w = 0.9
-                   t = 0.95 -h
-                   l = 0.95 -w
+                   h = 0.5
+                   w = 0.5
+                   t = 0.7 - h
+                   l = 0.7 - w
 
     spawnTerm = myTerminal ++ " -t term"
     findTerm = title =? "term"
     manageTerm = customFloating $ W.RationalRect l t w h
                  where
-                   h = 0.9
-                   w = 0.9
-                   t = 0.95 -h
-                   l = 0.95 -w
+                   h = 0.5
+                   w = 0.5
+                   t = 0.7 - h
+                   l = 0.7 - w
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.

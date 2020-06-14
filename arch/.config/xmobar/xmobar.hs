@@ -20,7 +20,7 @@ Config {
                       -- Time and date
                       Run Date "%a %b %d %H:%M:%S" "date" 10
                       -- Network up and down
-                    , Run DynNetwork  ["-t", "\xf0aa <rx>kb \xf0ab <tx>kb"] 10
+                    , Run DynNetwork  ["-t", "\xf0ab <rx>kb \xf0aa <tx>kb"] 10
                       -- Cpu usage in percent
                     , Run Cpu ["-t", "\xf108  <total>%","50","--high","red"] 20
                       -- Core Temprature
