@@ -138,6 +138,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Scratchpads shortcuts
     , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
+    , ((modm,               xK_t     ), namedScratchpadAction myScratchpads "term")
     ]
 
     ++
@@ -218,9 +219,12 @@ myLayout = avoidStruts (tiled ||| Mirror tiled ||| Full)
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
+myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
+    , title =? "calc"               --> doFloat
+    , title =? "term"               --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore ]
 
@@ -258,18 +262,28 @@ myStartupHook = return ()
 -- Scratchpads
 ------------------------------------------------------------------------
 
-myScratchpads = [ NS "calc" spawnCalc findCalc defaultFloating ]
+myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
+                , NS "term" spawnTerm findTerm manageTerm
+                ]
 
   where
     spawnCalc = myTerminal ++ " -t calc -e 'irb'"
     findCalc = title =? "calc"
     manageCalc = customFloating $ W.RationalRect l t w h
                  where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
+                   h = 0.9
+                   w = 0.9
+                   t = 0.95 -h
+                   l = 0.95 -w
 
+    spawnTerm = myTerminal ++ " -t term"
+    findTerm = title =? "term"
+    manageTerm = customFloating $ W.RationalRect l t w h
+                 where
+                   h = 0.9
+                   w = 0.9
+                   t = 0.95 -h
+                   l = 0.95 -w
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
