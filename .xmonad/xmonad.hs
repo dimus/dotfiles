@@ -11,6 +11,7 @@ import XMonad
 import Data.Monoid
 import System.Exit
 import XMonad.Hooks.ManageDocks
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce
 
@@ -32,7 +33,7 @@ myClickJustFocuses = False
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 1
+myBorderWidth   = 0
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -133,7 +134,11 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
     , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+
+    -- Scratchpads shortcuts
+    , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
     ]
+
     ++
 
     --
@@ -152,7 +157,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
-
 
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
@@ -247,6 +251,24 @@ myLogHook = return ()
 --
 -- By default, do nothing.
 myStartupHook = return ()
+
+
+------------------------------------------------------------------------
+-- Scratchpads
+------------------------------------------------------------------------
+
+myScratchpads = [ NS "calc" spawnCalc findCalc defaultFloating ]
+
+  where
+    spawnCalc = myTerminal ++ " -t calc -e 'irb'"
+    findCalc = title =? "calc"
+    manageCalc = customFloating $ W.RationalRect l t w h
+                 where
+                 h = 0.9
+                 w = 0.9
+                 t = 0.95 -h
+                 l = 0.95 -w
+
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
