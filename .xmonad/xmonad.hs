@@ -277,7 +277,7 @@ myScratchpads = [ NS "calc" spawnCalc findCalc defaultFloating ]
 -- Run xmonad with the settings you specify. No need to modify this.
 --
 main = do
-  xmproc <- spawnPipe "xmobar -d /home/dimus/.config/xmobar/xmobarrc0"
+  xmproc <- spawnPipe "xmobar -d /home/dimus/.config/xmobar/xmobar.hs"
   xmonad $ docks def {
       -- simple stuff
         terminal           = myTerminal,
