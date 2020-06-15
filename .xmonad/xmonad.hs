@@ -36,7 +36,7 @@ import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBO
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed (renamed, Rename(Replace))
 import XMonad.Layout.Spacing
-import XMonad.Layout.Tabbed
+-- import XMonad.Layout.Tabbed
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
@@ -65,11 +65,11 @@ myTerminal :: [Char]
 myTerminal = "alacritty"   -- Sets default terminal
 
 myBorderWidth :: Dimension
-myBorderWidth = 0         -- Sets border width for windows
+myBorderWidth = 1         -- Sets border width for windows
 
 -- Border colors for unfocused and focused windows, respectively.
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#700000"
+myNormalBorderColor  = "#333333"
+myFocusedBorderColor = "#888888"
 
 myNormColor :: [Char]
 myNormColor   = "#292d3e"  -- Border color of normal windows
@@ -262,6 +262,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- Scratchpads shortcutts
     , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
+    , ((modm,               xK_s     ), namedScratchpadAction myScratchpads "pulsemix")
     , ((modm,               xK_z     ), namedScratchpadAction myScratchpads "term")
     ]
 
@@ -324,14 +325,13 @@ myManageHook :: ManageHook
 myManageHook = composeAll
     [ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
-    -- , title =? "calc"               --> doFloat
-    -- , title =? "term"               --> doFloat
     , resource  =? "desktop_window" --> doIgnore
     , resource  =? "kdesktop"       --> doIgnore
     ] <+> namedScratchpadManageHook myScratchpads
 
 ------------------------------------------------------------------------
--- Event handling
+-- EVENT HANDLING
+------------------------------------------------------------------------
 
 -- * EwmhDesktops users should change this to ewmhDesktopsEventHook
 --
@@ -341,16 +341,10 @@ myManageHook = composeAll
 --
 myEventHook = mempty
 
-------------------------------------------------------------------------
--- Status bars and logging
-
--- Perform an arbitrary action on each internal state change or X event.
--- See the 'XMonad.Hooks.DynamicLog' extension for examples.
---
--- myLogHook = return ()
 
 ------------------------------------------------------------------------
--- Startup hook
+-- STARTUP HOOK
+------------------------------------------------------------------------
 
 -- Perform an arbitrary action each time xmonad starts or is restarted
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
@@ -407,19 +401,19 @@ threeRow = renamed [Replace "threeRow"]
            -- So we are applying Mirror to the ThreeCol layout.
            $ Mirror
            $ ThreeCol 1 (3/100) (1/2)
-tabs     = renamed [Replace "tabs"]
-           -- I cannot add spacing to this layout because it will
-           -- add spacing between window and tabs which looks bad.
-           $ tabbed shrinkText myTabConfig
-  where
-    myTabConfig = def { fontName            = "xft:FiraMono Nerd Font:regular:pixelsize=20"
-                      , activeColor         = "#292d3e"
-                      , inactiveColor       = "#3e445e"
-                      , activeBorderColor   = "#292d3e"
-                      , inactiveBorderColor = "#292d3e"
-                      , activeTextColor     = "#ffffff"
-                      , inactiveTextColor   = "#d0d0d0"
-                      }
+-- tabs     = renamed [Replace "tabs"]
+--            -- I cannot add spacing to this layout because it will
+--            -- add spacing between window and tabs which looks bad.
+--            $ tabbed shrinkText myTabConfig
+--   where
+--     myTabConfig = def { fontName            = "xft:FiraMono Nerd Font:regular:pixelsize=20"
+--                       , activeColor         = "#292d3e"
+--                       , inactiveColor       = "#3e445e"
+--                       , activeBorderColor   = "#292d3e"
+--                       , inactiveBorderColor = "#292d3e"
+--                       , activeTextColor     = "#ffffff"
+--                       , inactiveTextColor   = "#d0d0d0"
+--                       }
 
 -- The layout hook
 myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts floats $
@@ -427,14 +421,14 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
              where
                -- I've commented out the layouts I don't use.
                myDefaultLayout =     tall
-                                 -- ||| magnify
+                                 ||| threeRow
                                  ||| noBorders monocle
+                                 -- ||| magnify
                                  -- ||| floats
                                  -- ||| grid
-                                 ||| noBorders tabs
+                                 -- ||| noBorders tabs
                                  -- ||| spirals
                                  -- ||| threeCol
-                                 -- ||| threeRow
 
 
 ------------------------------------------------------------------------
@@ -442,6 +436,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 ------------------------------------------------------------------------
 
 myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
+                , NS "pulsemix" spawnPulse findPulse managePulse
                 , NS "term" spawnTerm findTerm manageTerm
                 ]
 
@@ -454,6 +449,15 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
                    w = 0.5
                    t = 0.7 - h
                    l = 0.7 - w
+
+    spawnPulse = myTerminal ++ " -t pulsemix -e 'pulsemixer'"
+    findPulse = title =? "pulsemix"
+    managePulse = customFloating $ W.RationalRect l t w h
+                 where
+                   h = 0.9
+                   w = 0.9
+                   t = 0.95 - h
+                   l = 0.95 - w
 
     spawnTerm = myTerminal ++ " -t term"
     findTerm = title =? "term"
