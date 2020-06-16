@@ -457,10 +457,10 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
     findTerm = title =? "term"
     manageTerm = customFloating $ W.RationalRect l t w h
                  where
-                   h = 0.5
-                   w = 0.5
-                   t = 0.7 - h
-                   l = 0.7 - w
+                   h = 0.9
+                   w = 0.9
+                   t = 0.95 - h
+                   l = 0.95 - w
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
