@@ -46,6 +46,7 @@ alias cr="cargo run --"
 alias cw="cargo watch -x"
 alias scr="sudo btrfs scrub status /"
 alias re="rustc --explain"
+alias kbar="killall -q xmobar"
 
 if [ -f $HOME/.bash_aliases_local ]; then
   source $HOME/.bash_aliases_local

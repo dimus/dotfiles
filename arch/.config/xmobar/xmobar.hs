@@ -45,5 +45,5 @@ Config {
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "<fc=#ffffff>  </fc>%UnsafeStdinReader% }{<fc=#666666>| </fc>%battery% <fc=#666666>| </fc><fc=#FFB86C>%cpu% </fc><fc=#666666>| </fc><fc=#ffff22>%coretemp%糖 </fc><fc=#666666>| </fc><fc=#FF5555>%memory% </fc><fc=#666666>| </fc><fc=#82AAFF>%disku% </fc><fc=#666666>| </fc><fc=#c3e88d>%dynnetwork% </fc><fc=#666666>| </fc><fc=#8BE9FD>%date%</fc> "
+       , template = "<fc=#ffffff>  </fc>%UnsafeStdinReader% }{<fc=#c3e88d>%dynnetwork% </fc><fc=#666666>| </fc>%battery% <fc=#666666>| </fc><fc=#FFB86C>%cpu% </fc><fc=#666666>| </fc><fc=#ffff22>%coretemp%糖 </fc><fc=#666666>| </fc><fc=#FF5555>%memory% </fc><fc=#666666>| </fc><fc=#82AAFF>%disku% </fc><fc=#666666>| </fc><fc=#8BE9FD>%date%</fc> "
        }

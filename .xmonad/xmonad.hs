@@ -68,14 +68,11 @@ myBorderWidth :: Dimension
 myBorderWidth = 1         -- Sets border width for windows
 
 -- Border colors for unfocused and focused windows, respectively.
+myNormalBorderColor :: [Char]
 myNormalBorderColor  = "#333333"
+
+myFocusedBorderColor :: [Char]
 myFocusedBorderColor = "#888888"
-
-myNormColor :: [Char]
-myNormColor   = "#292d3e"  -- Border color of normal windows
-
-myFocusColor :: [Char]
-myFocusColor  = "#bbc5ff"  -- Border color of focused windows
 
 altMask :: KeyMask
 altMask = mod1Mask         -- Setting this for use in xprompts
@@ -94,6 +91,7 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 ------------------------------------------------------------------------
 -- XPROMPT KEYMAP (emacs-like key bindings)
 ------------------------------------------------------------------------
+
 dmXPKeymap :: M.Map (KeyMask,KeySym) (XP ())
 dmXPKeymap = M.fromList $
      map (first $ (,) controlMask)   -- control + <key>
@@ -136,6 +134,7 @@ dmXPKeymap = M.fromList $
 ------------------------------------------------------------------------
 -- XPROMPT SETTINGS
 ------------------------------------------------------------------------
+
 dmXPConfig :: XPConfig
 dmXPConfig = def
       { font                = "xft:FiraMono Nerd Font:bold:size=15"
@@ -162,9 +161,7 @@ dmXPConfig = def
 -- The same config minus the autocomplete feature which is annoying on
 -- certain Xprompts, like the search engine prompts.
 dmXPConfig' :: XPConfig
-dmXPConfig' = dmXPConfig
-      { autoComplete = Nothing
-      }
+dmXPConfig' = dmXPConfig { autoComplete = Nothing }
 
 -- A list of all of the standard Xmonad prompts
 promptList :: [(String, XPConfig -> X ())]
@@ -191,11 +188,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- SSH Prompt
     , ((modm .|. shiftMask, xK_s), sshPrompt dmXPConfig)   -- Shell Prompt
 
-    -- launch dmenu
+    -- launch dmenu (I like Run Prompt better)
     , ((modm,               xK_p     ), spawn "dmenu_run")
-
-    -- launch gmrun
-    , ((modm .|. shiftMask, xK_p     ), spawn "gmrun")
 
     -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -222,7 +216,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_m     ), windows W.focusMaster  )
 
     -- Swap the focused window and the master window
-    -- , ((modm,               xK_Return), windows W.swapMaster)
+    -- , ((modm .|. shiftMask, xK_h), windows W.swapMaster)
 
     -- Swap the focused window with the next window
     , ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -249,7 +243,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     --
-    -- , ((modm              , xK_b     ), sendMessage ToggleStruts)
+    , ((modm              , xK_b     ), sendMessage ToggleStruts)
 
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
@@ -258,7 +252,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
 
     -- Run xmessage with a summary of the default keybindings (useful for beginners)
-    , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
+    -- , ((modm .|. shiftMask, xK_slash ), spawn ("echo \"" ++ help ++ "\" | xmessage -file -"))
 
     -- Scratchpads shortcutts
     , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
