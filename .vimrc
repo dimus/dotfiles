@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged')
 " other
   Plug 'SirVer/ultisnips' " snippets
   Plug 'chrisbra/Colorizer' " show color of color codes
+  " Plug 'fatih/vim-go' " go fmt mostly, the rest is coc
   Plug 'frazrepo/vim-rainbow' " colorize brackets
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -38,6 +39,9 @@ let g:rainbow_active = 1
 
 " pgsql plugin for sql queries
 let g:sql_type_default = 'pgsql'
+
+" disable gd in vim-go
+" let g:go_def_mapping_enabled = 0
 
 " CtrlP Plugin
 let g:ctrlp_show_hidden = 1
