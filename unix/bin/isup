@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sudo /usr/bin/iscsiadm -m node -l
+res=$?
+if [ $res == 0 ]; then
+  echo "Mounting ISCSI drive..."
+  sleep 1
+  sudo /usr/bin/mount /opt/gn
+fi

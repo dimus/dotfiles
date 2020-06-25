@@ -162,3 +162,5 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")" 
 
 eval "$(starship init bash)"
+
+source /home/dimus/.config/broot/launcher/bash/br

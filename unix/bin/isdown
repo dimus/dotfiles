@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Disconnecting from ISCSI drive"
+tmp=$(sudo /usr/bin/umount /opt/gn 2>&1)
+echo ${tmp}
+sleep 1
+if [[ -z ${tmp} || ${tmp} =~ "not mounted" ]]; then
+  sudo /usr/bin/iscsiadm -m node -u
+fi
