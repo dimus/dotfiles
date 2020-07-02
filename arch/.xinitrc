@@ -36,7 +36,7 @@ eval $(ssh-agent)
 ssh-add
 
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
-# compton -b
+compton -b
 # urxvtd -q -f -o
 setxkbmap -option 'ctrl:nocaps' -option 'grp:alt_space_toggle' -layout us,ru -variant ,mac
 xmonad
