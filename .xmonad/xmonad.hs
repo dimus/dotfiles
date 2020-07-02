@@ -257,6 +257,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Scratchpads shortcutts
     , ((modm,               xK_a     ), namedScratchpadAction myScratchpads "calc")
     , ((modm,               xK_s     ), namedScratchpadAction myScratchpads "pulsemix")
+    , ((modm,               xK_x     ), namedScratchpadAction myScratchpads "solanum")
     , ((modm,               xK_z     ), namedScratchpadAction myScratchpads "term")
     ]
 
@@ -431,6 +432,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
 
 myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
                 , NS "pulsemix" spawnPulse findPulse managePulse
+                , NS "solanum" spawnSolanum findSolanum manageSolanum
                 , NS "term" spawnTerm findTerm manageTerm
                 ]
 
@@ -451,6 +453,15 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
                    h = 0.9
                    w = 0.9
                    t = 0.95 - h
+                   l = 0.95 - w
+
+    spawnSolanum = myTerminal ++ " -t solanum --config-file /home/dimus/.config/alacritty/sol.yml -e 'solanum'"
+    findSolanum = title =? "solanum"
+    manageSolanum = customFloating $ W.RationalRect l t w h
+                 where
+                   h = 0.20
+                   w = 0.9
+                   t = 0.25 - h
                    l = 0.95 - w
 
     spawnTerm = myTerminal ++ " -t term"
