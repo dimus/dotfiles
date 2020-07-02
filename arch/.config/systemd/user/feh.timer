@@ -2,7 +2,7 @@
 Description=Change background every 10 minutes
 
 [Timer]
-OnActiveSec=1min
+OnActiveSec=10sec
 OnUnitActiveSec=10min
 
 [Install]
