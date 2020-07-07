@@ -173,8 +173,8 @@ colors:
   #  background: '#1d1f21'
   #  foreground: '#c5c8c6'
   primary:
-    background: '#001010'
-    foreground: '#b5b3aa'
+    background: '#000000'
+    foreground: '#bebebe'
 
     # Bright and dim foreground colors
     #
@@ -193,7 +193,7 @@ colors:
   #  cursor: '#ffffff'
   cursor:
     text: '#000000'
-    cursor: '#b5b3aa'
+    cursor: '#bebebe'
 
   # Vi mode cursor colors
   #
