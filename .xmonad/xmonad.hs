@@ -459,9 +459,9 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
     findSolanum = title =? "solanum"
     manageSolanum = customFloating $ W.RationalRect l t w h
                  where
-                   h = 0.20
+                   h = 0.5
                    w = 0.9
-                   t = 0.25 - h
+                   t = 0.55 - h
                    l = 0.95 - w
 
     spawnTerm = myTerminal ++ " -t term"
