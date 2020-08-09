@@ -173,7 +173,7 @@ colors:
   #  background: '#1d1f21'
   #  foreground: '#c5c8c6'
   primary:
-    background: '#001010'
+    background: '#000000'
     foreground: '#b5b3aa'
 
     # Bright and dim foreground colors
@@ -255,7 +255,7 @@ colors:
   # If the dim colors are not set, they will be calculated automatically based
   # on the `normal` colors.
   dim:
-    black:   '#131415'
+    black:   '#131313'
     red:     '#864343'
     green:   '#777c44'
     yellow:  '#9e824c'
