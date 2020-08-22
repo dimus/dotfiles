@@ -126,7 +126,8 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " Mappings {
   " faster escape
-  inoremap jk <esc>
+  " inoremap jk <esc>
+  inoremap jj <esc>
   " fuzzy search for file
   nnoremap <C-p> :Files<CR>
   nnoremap <leader>; :Buffers<CR>
