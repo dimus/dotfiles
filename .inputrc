@@ -1,7 +1,7 @@
 set editing-mode vim
 
 set keymap vi-insert
-"jk": vi-movement-mode
+"jj": vi-movement-mode
 "\C-w": backward-kill-word
 "\C-p": history-search-backward
 "\e.": yank-last-arg
