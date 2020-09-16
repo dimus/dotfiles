@@ -138,7 +138,7 @@ export JDK_HOME=$JAVA_HOME
 
 export MPD_HOST=0.0.0.0
 
-export PATH="$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
+export PATH="$HOME/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$HOME/.local/bin:$HOME/bin:$GOPATH/bin:$GOROOT/bin:$PATH"
 export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 
 cf() { find ~/src/dotfiles ~/.config -type f -not -path '*/.git/*'| fzf | xargs -r $EDITOR; }

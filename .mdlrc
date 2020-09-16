@@ -1,3 +1,0 @@
-verbose(true)
-ignore_front_matter(true)
-rules("~MD023", "~MD024", "~MD026", "~MD029", "~MD033", "~MD035")

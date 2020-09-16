@@ -4,7 +4,6 @@
 " Plugins {
 call plug#begin('~/.vim/plugged')
 " highlight
-  Plug 'PotatoesMaster/i3-vim-syntax' " syntax highlighting for i3
   Plug 'cespare/vim-toml' " syntax highlighting for toml files
   Plug 'chr4/nginx.vim' " syntax highlight for nginx
   Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
@@ -565,3 +564,4 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
     \ endif
 " }
 
+" noremap <silent><leader>jl :!wal --theme random_dark<cr><cr>

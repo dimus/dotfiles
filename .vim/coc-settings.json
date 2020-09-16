@@ -1,5 +1,8 @@
 {
-  "go.disable": {
-    "workspaceFolders": false
+  "markdownlint.config": {
+    "hr-style": false,
+    "header-style":  {
+      "style": "atx"
+    }
   }
 }
