@@ -33,6 +33,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim' " status bar
 call plug#end()
 
+"Firevim preferences
+
+if exists('g:started_by_firenvim')
+  set laststatus=0
+else
+  set laststatus=2
+endif
+
 " vim-rainbow parentheses
 
 let g:rainbow_active = 1
