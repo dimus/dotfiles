@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'gruvbox-community/gruvbox' " colorscheme
 " other
   Plug 'SirVer/ultisnips' " snippets
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug 'chrisbra/Colorizer' " show color of color codes
   " Plug 'fatih/vim-go' " go fmt mostly, the rest is coc
   Plug 'frazrepo/vim-rainbow' " colorize brackets

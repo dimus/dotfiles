@@ -157,6 +157,8 @@ sudo sed -i 's/kterm|gnome/kterm|alacritty|gnome/' /etc/bash.bashrc
 mkdir -p $HOME/Pictures/ScreenShoots
 rm -f ~/.xinitrc
 ln -s ~/src/dotfiles/arch/.xinitrc ~
+rm -f ~/.XCompose
+ln -s ~/src/dotfiles/.XCompose ~
 
 mkdir -p ~/.config
 rm -rf ~/.config/i3
