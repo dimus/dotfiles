@@ -6,12 +6,12 @@
 <Multi_key> <g>      : "ĝ"
 <Multi_key> <j>      : "ĵ"
 <Multi_key> <s>      : "ŝ"
-<Multi_key> <u>      : "û"
+<Multi_key> <u>      : "ŭ"
 <Multi_key> <C>      : "Ĉ"
 <Multi_key> <G>      : "Ĝ"
 <Multi_key> <J>      : "Ĵ"
 <Multi_key> <S>      : "Ŝ"
-<Multi_key> <U>      : "Û"
+<Multi_key> <U>      : "Ŭ"
 
 <Multi_key> <o> <c>  : "©"   copyright # COPYRIGHT SIGN
 <Multi_key> <x>      : "×"   multiply # MULTIPLICATION SIGN
