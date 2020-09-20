@@ -33,10 +33,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim' " status bar
 call plug#end()
 
-"Firevim preferences
-
+" Firenvim preferences (neovim in a browser)
 if exists('g:started_by_firenvim')
-  set laststatus=0
+  set laststatus=0 norelativenumber nonumber noshowmode noshowcmd noruler
 else
   set laststatus=2
 endif
@@ -80,6 +79,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   set path+=** " make path for find recursive
   " fix vsp and sp to be more reasonable
   set splitright splitbelow
+
+  "search
+  set smartcase
 
   "wrapping
   set wrap
