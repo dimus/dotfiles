@@ -35,7 +35,7 @@ fi
 eval $(ssh-agent)
 ssh-add
 
-disp
+# disp
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
 compton -b
 # urxvtd -q -f -o

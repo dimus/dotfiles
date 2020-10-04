@@ -12,9 +12,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'gruvbox-community/gruvbox' " colorscheme
 " other
   Plug 'SirVer/ultisnips' " snippets
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   Plug 'chrisbra/Colorizer' " show color of color codes
-  " Plug 'fatih/vim-go' " go fmt mostly, the rest is coc
   Plug 'frazrepo/vim-rainbow' " colorize brackets
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -72,7 +70,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " General {
 
-  let mapleader=" "
+  let mapleader="\<Space>"
   let maplocalleader=","
   let g:elm_setup_keybindings = 1
   set nocompatible    " Use Vim defaults (much better!)
@@ -81,7 +79,17 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   set splitright splitbelow
 
   "search
-  set smartcase
+  " use \c to search capitalized words
+  " /\chelloworld
+  set ignorecase
+  " set smartcase
+
+  " search with fzf
+  " let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+  let $FZF_DEFAULT_COMMAND='rg --files --hiden --glob --exclude .git'
+  nmap // :BLines!<CR>   " search current buffer
+  nmap ?? :Rg!<CR>       " search whole project
+  nmap cc :Commands!<CR> " search vim/plugin commands
 
   "wrapping
   set wrap
@@ -127,6 +135,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   set undodir=~/.vim/undodir
   set undofile
 " }
+
+" Tabs
+noremap <C-h> :tabp<CR> " to the rithgt tab
+noremap <C-l> :tabn<CR> " to the left tab
+noremap <C-J> :tabc<CR> " close current tab
 
 " Clipboard {
   " sets the system's clipboard 'default'

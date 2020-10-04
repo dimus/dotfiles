@@ -2,9 +2,20 @@
 
 disps=$(/usr/bin/xrandr)
 
-if [[ ${disps} =~ 'DP3 connected' ]]; then
+dp3='DP3 connected'
+dp1='DP1 connected'
+
+if [[ ${disps} =~ $dp3 ]]; then
+  echo "DP3"
   /usr/bin/xrandr --output DP3 --mode 3440x1440 --primary
-  /usr/bin/xrandr --output eDP1 --mode 1920x1200 --left-of DP3
+  # /usr/bin/xrandr --output eDP1 --mode 1920x1200 --left-of DP3
+  /usr/bin/xrandr --output eDP1 --off
+
+# elif [[ ${disps} =~ $dp1 ]]; then
+#   /usr/bin/xrandr --output DP1 --mode 3440x1440 --primary
+#   # /usr/bin/xrandr --output eDP1 --mode 1920x1200 --left-of DP3
+#   /usr/bin/xrandr --output eDP1 --off
+
 else
   /usr/bin/xrandr --output eDP1 --mode 1920x1200 --rotate normal
 fi
