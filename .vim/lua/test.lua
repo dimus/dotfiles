@@ -2,8 +2,9 @@ local api = vim.api
 
 local M = {}
 
-function M.makeScratch()
-  api.nvim_command("enew")
+function M.changeCase()
+  res = string.gsub(vim.fn.expand("<cword>"), "_(.)", string.upper)
+  print(res)
 end
 
 return M

@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'gruvbox-community/gruvbox' " colorscheme
 " other
   Plug 'SirVer/ultisnips' " snippets
-  Plug 'chrisbra/Colorizer' " show color of color codes
+  Plug 'norcalli/nvim-colorizer.lua'
   Plug 'frazrepo/vim-rainbow' " colorize brackets
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -31,27 +31,15 @@ call plug#begin('~/.vim/plugged')
   Plug 'itchyny/lightline.vim' " status bar
 call plug#end()
 
-" Firenvim preferences (neovim in a browser)
-if exists('g:started_by_firenvim')
-  set laststatus=0 norelativenumber nonumber noshowmode noshowcmd noruler
-else
-  set laststatus=2
-endif
+" nvim-colorizer
+set termguicolors
+lua require'colorizer'.setup()
 
 " vim-rainbow parentheses
-
 let g:rainbow_active = 1
 
 " pgsql plugin for sql queries
 let g:sql_type_default = 'pgsql'
-
-" disable gd in vim-go
-" let g:go_def_mapping_enabled = 0
-
-" CtrlP Plugin
-let g:ctrlp_show_hidden = 1
-set wildignore+=bin/*,*/target/*,*.o,*.hi,*.class,*.pdf,*.jpg
-let g:ctrlp_custom_ignore = '\v[\/](\.(git|stack-work)|coverage|elm-stuff)$'
 
 " UltiSnips
 nmap <F1> <nop>
@@ -69,10 +57,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " autocmd! BufWritePost * Neomake
 
 " General {
-
+  
+  " set guifont=FiraCode:h14
   let mapleader="\<Space>"
   let maplocalleader=","
-  let g:elm_setup_keybindings = 1
   set nocompatible    " Use Vim defaults (much better!)
   set path+=** " make path for find recursive
   " fix vsp and sp to be more reasonable
@@ -86,10 +74,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
   " search with fzf
   " let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-  let $FZF_DEFAULT_COMMAND='rg --files --hiden --glob --exclude .git'
-  nmap // :BLines!<CR>   " search current buffer
-  nmap ?? :Rg!<CR>       " search whole project
-  nmap cc :Commands!<CR> " search vim/plugin commands
+  let $FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+  " search current buffer
+  nmap // :BLines<CR>
+  " search whole project
+  nmap ?? :Rg<CR>
+  " search vim/plugin commands
+  nmap cc :Commands<CR>
 
   "wrapping
   set wrap
@@ -589,3 +580,5 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " }
 
 " noremap <silent><leader>jl :!wal --theme random_dark<cr><cr>
+command! Case lua require('test').changeCase()
+" command! Case lua print("hi")

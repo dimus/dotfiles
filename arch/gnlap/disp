@@ -7,9 +7,9 @@ dp1='DP1 connected'
 
 if [[ ${disps} =~ $dp3 ]]; then
   echo "DP3"
+  /usr/bin/xrandr --output eDP1 --off
   /usr/bin/xrandr --output DP3 --mode 3440x1440 --primary
   # /usr/bin/xrandr --output eDP1 --mode 1920x1200 --left-of DP3
-  /usr/bin/xrandr --output eDP1 --off
 
 # elif [[ ${disps} =~ $dp1 ]]; then
 #   /usr/bin/xrandr --output DP1 --mode 3440x1440 --primary
