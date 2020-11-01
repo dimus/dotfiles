@@ -48,6 +48,9 @@ import XMonad.Layout.Spiral
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.ThreeColumns
 
+-- Keyboard
+import XMonad.Util.EZConfig(additionalKeys)
+
 -- Actions
 import XMonad.Actions.MouseResize
 
@@ -280,6 +283,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
+
+    --
+    -- volume wheel up and down from `additionalKeys`
+    --
+    ++
+    [
+      ((0                     , 0x1008FF11), spawn "amixer -q sset Master 2%-"),
+      ((0                     , 0x1008FF13), spawn "amixer -q sset Master 2%+")
+    ]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
