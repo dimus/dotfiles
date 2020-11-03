@@ -5,7 +5,7 @@ disps=$(/usr/bin/xrandr)
 dp3='DP3 connected'
 dp1='DP1 connected'
 
-if [[ ${disps} =~ $dp3 ]]; then
+if [[ ${disps} =~ "DP3 connected" ]]; then
   echo "DP3"
   /usr/bin/xrandr --output eDP1 --off
   /usr/bin/xrandr --output DP3 --mode 3440x1440 --primary
