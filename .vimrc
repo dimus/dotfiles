@@ -29,6 +29,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround' " surround something with characters like )]} etc.
   Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
   Plug 'itchyny/lightline.vim' " status bar
+  " Debugging
+  Plug 'puremourning/vimspector'
+  Plug 'szw/vim-maximizer' " toggle window from bigto small
 call plug#end()
 
 " nvim-colorizer
@@ -582,3 +585,31 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 " noremap <silent><leader>jl :!wal --theme random_dark<cr><cr>
 command! Case lua require('test').changeCase()
 " command! Case lua print("hi")
+
+" MaximizeToggle from vim-maximizer
+nnoremap <leader>m :MaximizerToggle<CR>
+
+" Debugger from vimspector
+nnoremap <leader>dd call :vimspector#Launch()<CR>
+nnoremap <leader>de call :vimspector#Reset()<CR>
+
+nnoremap <leader>dc call :vimspector#GotoWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>dt call :vimspector#GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+nnoremap <leader>dv call :vimspector#GotoWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>dw call :vimspector#GotoWindow(g:vimspector_session_windows.watches)<CR>
+nnoremap <leader>ds call :vimspector#GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+nnoremap <leader>do call :vimspector#GotoWindow(g:vimspector_session_windows.output)<CR>
+
+nnoremap <leader>dtcb call :vimspector#CleanLineBreakpoint()<CR>
+
+nnoremap <leader>dl <Plug>VimspectorStepInto
+nnoremap <leader>dj <Plug>VimspectorStepOver
+nnoremap <leader>dk <Plug>VimspectorStepOut
+nnoremap <leader>d_ <Plug>VimspectorRestart
+nnoremap <leader>d<space> call :vimspector#Continue()<CR>
+
+nnoremap <leader>drc <Plug>VimspectorRunToCursor
+nnoremap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nnoremap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
+
