@@ -150,9 +150,6 @@ source $HOME/git-completion.bash
 
 eval "$(rbenv init -)"
 
-# . ~/src/liquidprompt/liquidprompt
-. /etc/profile.d/autojump.bash
-
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # Base16 Shell
@@ -162,5 +159,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
         eval "$("$BASE16_SHELL/profile_helper.sh")" 
 
 eval "$(starship init bash)"
+eval "$(jump shell)"
 
 source /home/dimus/.config/broot/launcher/bash/br

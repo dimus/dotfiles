@@ -30,9 +30,21 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
   Plug 'itchyny/lightline.vim' " status bar
   " Debugging
-  Plug 'puremourning/vimspector'
+  " Plug 'puremourning/vimspector'
   Plug 'szw/vim-maximizer' " toggle window from bigto small
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
+  Plug 'nvim-treesitter/playground'
 call plug#end()
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+}
+EOF
 
 " nvim-colorizer
 set termguicolors
