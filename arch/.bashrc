@@ -124,9 +124,9 @@ vicd()
     cd "$dst"
 }
 
-export EDITOR=/usr/bin/nvim
-export PSQL_EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/nvim
+export EDITOR=$HOME/.local/bin/nvim
+export PSQL_EDITOR=$EDITOR
+export VISUAL=$EDITOR
 export TERMINAL=alacritty
 
 export GOPATH=$HOME/go
@@ -138,7 +138,7 @@ export JDK_HOME=$JAVA_HOME
 
 export MPD_HOST=0.0.0.0
 
-export PATH="$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$HOME/.local/bin:$HOME/bin:$PATH"
+export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$PATH"
 export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 
 cf() { find ~/src/dotfiles ~/.config -type f -not -path '*/.git/*'| fzf | xargs -r $EDITOR; }
@@ -162,3 +162,5 @@ eval "$(starship init bash)"
 eval "$(jump shell)"
 
 source /home/dimus/.config/broot/launcher/bash/br
+
+eval $(keychain --eval --quiet id_rsa id_rsa_gina)
