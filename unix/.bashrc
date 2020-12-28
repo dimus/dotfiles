@@ -1,6 +1,4 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
 
 # If not running interactively, don't do anything
 case $- in
@@ -16,8 +14,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=500
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -37,7 +35,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -72,17 +70,16 @@ xterm*|rxvt*)
     ;;
 esac
 
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+alias ls='ls --color=auto'
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -102,6 +99,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+if [ -f ~/.bashrc_local ]; then
+    . ~/.bashrc_local
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -113,35 +114,53 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=./bin:$HOME/bin:$PATH
-export CLASSPATH=$CLASSPATH:/usr/share/java/mysql-connector-java-5.1.29-bin.jar
-if [ -f $HOME/.git_colors ]; then
-  . $HOME/.git_colors
-fi
+vicd()
+{
+    local dst="$(command vifm --choose-dir - "$@")"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}
 
-HISTSIZE=9000
-HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace:ignoredups
+export EDITOR=$HOME/.local/bin/nvim
+export PSQL_EDITOR=$EDITOR
+export VISUAL=$EDITOR
+export TERMINAL=alacritty
 
-# history() {
-#   _bash_history_sync
-#   builtin history "$@"
-# }
-#
-# _bash_history_sync() {
-#   builtin history -a         #1
-#   HISTFILESIZE=$HISTSIZE     #2
-#   builtin history -c         #3
-#   builtin history -r         #4
-# }
-#
-# PROMPT_COMMAND=_bash_history_sync
+export GOPATH=$HOME/go
+export GOROOT=/usr/lib/go
+export GOBIN=$HOME/go/bin
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export JAVA_HOME=/usr/lib/jvm/default
+export JDK_HOME=$JAVA_HOME
 
-sudo /etc/rc.local
+export MPD_HOST=0.0.0.0
 
+export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$PATH"
+export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 
-[[ -s "/home/dimus/.gvm/scripts/gvm" ]] && source "/home/dimus/.gvm/scripts/gvm"
-export GOPATH="$GOPATH:$HOME/goeg:$HOME/go"
-export EDITOR="vim"
-export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin
-xmodmap -e "keycode 135 = U2126 Multi_key Multi_key Multi_key"
+cf() { find ~/src/dotfiles ~/.config -type f -not -path '*/.git/*'| fzf | xargs -r $EDITOR; }
+gf() { cd $(find ~/go/src/github.com/dimus ~/go/src/github.com/gnames ~/go/src/gitlab.com/gogna ~/code/go -maxdepth 1 -type d | fzf); }
+
+source $HOME/git-completion.bash
+
+# export PAGER='vim -R -u ~/.vimrcpg -'
+
+eval "$(rbenv init -)"
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")" 
+
+eval "$(starship init bash)"
+eval "$(jump shell)"
+
+source /home/dimus/.config/broot/launcher/bash/br
+
+eval $(keychain --eval --quiet id_rsa id_rsa_gina)
