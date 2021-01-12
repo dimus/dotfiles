@@ -3,28 +3,41 @@
 
 " Plugins {
 call plug#begin('~/.vim/plugged')
+"fuzzy search
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim' " fuzzy search with lua
+
+  " LSP plugins
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'tjdevries/nlua.nvim'
+  Plug 'tjdevries/lsp_extensions.nvim'
+
 " highlight
+  Plug 'nanotech/jellybeans.vim' " jellybeans color schema
   Plug 'cespare/vim-toml' " syntax highlighting for toml files
   Plug 'chr4/nginx.vim' " syntax highlight for nginx
   Plug 'lifepillar/pgsql.vim' " postgresql synthax highlight
   Plug 'jparise/vim-graphql' "graphql syntax and file detection
   Plug 'pest-parser/pest.vim' " syntax highlighting for pest parser
-  " Plug 'gruvbox-community/gruvbox' " colorscheme
+
 " other
   Plug 'SirVer/ultisnips' " snippets
   Plug 'norcalli/nvim-colorizer.lua'
   Plug 'frazrepo/vim-rainbow' " colorize brackets
   Plug 'git@github.com:dimus/vim-snippets' " my custom snippets
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim' " fuzzy search
+  " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  " Plug 'junegunn/fzf.vim' " fuzzy search
   Plug 'machakann/vim-highlightedyank' " highlights yank command
   Plug 'mbbill/undotree' " nonlinear undo UI
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
   Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
   Plug 'tpope/vim-fugitive' " git
+  Plug 'airblade/vim-gitgutter' " shows changed lines in git
   Plug 'tpope/vim-repeat' " add . command to some plugins
   Plug 'tpope/vim-surround' " surround something with characters like )]} etc.
   Plug 'tpope/vim-unimpaired' " move to next/previous shortcuts
@@ -37,69 +50,34 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-treesitter/playground'
 call plug#end()
 
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = { enable = true },
-}
-EOF
-
-" nvim-colorizer
-set termguicolors
-lua require'colorizer'.setup()
-
-" vim-rainbow parentheses
-let g:rainbow_active = 1
-
-" pgsql plugin for sql queries
-let g:sql_type_default = 'pgsql'
-
-" UltiSnips
-nmap <F1> <nop>
-imap <F1> <nop>
-let g:UltiSnipsExpandTrigger="<F1>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" Lightline
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat'
-"       \}
-
-" Neomake
-" autocmd! BufWritePost * Neomake
-
-" General {
-  
-  " set guifont=FiraCode:h14
-  let mapleader="\<Space>"
-  let maplocalleader=","
+" General settings {
+  set guifont=FiraCode:h14
+  let mapleader="\<space>"
+  " let maplocalleader=","
   set nocompatible    " Use Vim defaults (much better!)
   set path+=** " make path for find recursive
   " fix vsp and sp to be more reasonable
   set splitright splitbelow
 
   "search
-  " use \c to search capitalized words
-  " /\chelloworld
+  " use \C to search capitalized words
   set ignorecase
-  " set smartcase
-
-  " search with fzf
-  " let $FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-  let $FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
-  " search current buffer
-  nmap // :BLines<CR>
-  " search whole project
-  nmap ?? :Rg<CR>
-  " search vim/plugin commands
-  nmap cc :Commands<CR>
 
   "wrapping
   set wrap
   set linebreak
+  set ts=2            " makes tabulation to work as 2 spaces
+  set softtabstop=2
+  set shiftwidth=2    " sets indentation 2 spaces
+  set shiftround      " use multiple of shiftwidth for > and <
+  set expandtab       " tabs from spaces use CTRL_V_TAB to insert real tab
+  set scrolloff=8 " starts scrolling when you are 8 lines away from bottom or top
   " set showbreak=…
   " set tw=79 " hard wrap after 79 columns
+
+  " local .vimrc. Run it if it exists locally
+  set exrc " executes local .vimrc if it exists
+
 
   set pastetoggle=<F2> " toggles paste mode
 
@@ -124,12 +102,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   " let base16colorspace=256
   set lazyredraw " remove lag: makes vertical scrolling faster
 
-  set ts=2            " makes tabulation to work as 2 spaces
-  set softtabstop=2
-  set shiftwidth=2    " sets indentation 2 spaces
-  set shiftround      " use multiple of shiftwidth for > and <
-  set expandtab       " tabs from spaces use CTRL_V_TAB to insert real tab
-
   set ai              " always set autoindenting on
   set nocin "no indent c-style
   set smartindent
@@ -140,10 +112,11 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
   set undofile
 " }
 
-" Tabs
-noremap <C-h> :tabp<CR> " to the rithgt tab
-noremap <C-l> :tabn<CR> " to the left tab
-noremap <C-J> :tabc<CR> " close current tab
+" Tabs {
+  noremap <C-h> :tabp<CR> " to the rithgt tab
+  noremap <C-l> :tabn<CR> " to the left tab
+  noremap <C-J> :tabc<CR> " close current tab
+" }
 
 " Clipboard {
   " sets the system's clipboard 'default'
@@ -156,10 +129,6 @@ noremap <C-J> :tabc<CR> " close current tab
   " inoremap jk <esc>
   inoremap jj <esc>
   " fuzzy search for file
-  nnoremap <C-p> :Files<CR>
-  nnoremap <leader>; :Buffers<CR>
-    " map R :!ruby % <cr>
-    " map S :!spec % <cr>
 
   " edit .vimrc/init.vim
   noremap <leader>v :e $MYVIMRC<CR>
@@ -278,8 +247,10 @@ noremap <C-J> :tabc<CR> " close current tab
 
 " Colors {
   colorscheme jellybeans
+  " transparent background
+  hi Normal guibg=NONE ctermbg=NONE
   " autocmd ColorScheme * highlight Normal ctermbg=black
-  " autocmd ColorScheme * highlight NonText ctermbg=black
+  autocmd ColorScheme * highlight NonText guibg=NONE ctermbg=NONE
   " colorscheme gruvbox
 
   " 80 column border is grey
@@ -432,156 +403,13 @@ endif
 " psql
 au BufRead /tmp/psql.edit.* set syntax=sql
 
-"===============================================================================
-" Coc Settings
-"===============================================================================
-" Give more space for displaying messages.
-" set cmdheight=1
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current line.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-"===============================================================================
-" End Coc settings
-"===============================================================================
-
 " Commands {
   " allows to save buffer with sudo
   command! W w !sudo tee % >/dev/null
   " delete trailing space
   autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json,*.rs :%s/\v\s+$//e
   " autoformat Go files on save
-  autocmd BufWritePre *.go,*.rs,*.rb :Format
+  autocmd BufWritePre *.go :%! goimports
   " cleans git-related buffers opened by fugitive plugin
   autocmd BufReadPost fugitive://* set bufhidden=delete
   " maps `..` to going level up in a fugitive representation of git tree
@@ -621,5 +449,4 @@ nnoremap <leader>d<space> call :vimspector#Continue()<CR>
 nnoremap <leader>drc <Plug>VimspectorRunToCursor
 nnoremap <leader>dbp <Plug>VimspectorToggleBreakpoint
 nnoremap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
-
 
