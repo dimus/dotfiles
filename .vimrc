@@ -9,10 +9,10 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-telescope/telescope.nvim' " fuzzy search with lua
 
   " LSP plugins
-  Plug 'neovim/nvim-lspconfig'
-  Plug 'nvim-lua/completion-nvim'
-  Plug 'tjdevries/nlua.nvim'
-  Plug 'tjdevries/lsp_extensions.nvim'
+  " Plug 'neovim/nvim-lspconfig'
+  " Plug 'nvim-lua/completion-nvim'
+  " Plug 'tjdevries/nlua.nvim'
+  " Plug 'tjdevries/lsp_extensions.nvim'
 
 " highlight
   Plug 'nanotech/jellybeans.vim' " jellybeans color schema
@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mbbill/undotree' " nonlinear undo UI
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
-  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
   Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
   Plug 'tpope/vim-fugitive' " git
@@ -249,9 +249,7 @@ call plug#end()
   colorscheme jellybeans
   " transparent background
   hi Normal guibg=NONE ctermbg=NONE
-  " autocmd ColorScheme * highlight Normal ctermbg=black
-  autocmd ColorScheme * highlight NonText guibg=NONE ctermbg=NONE
-  " colorscheme gruvbox
+  hi! NonText ctermbg=NONE guibg=NONE
 
   " 80 column border is grey
   hi ColorColumn ctermbg=236 guibg=#303030
