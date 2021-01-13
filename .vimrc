@@ -407,7 +407,7 @@ au BufRead /tmp/psql.edit.* set syntax=sql
   " delete trailing space
   autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json,*.rs :%s/\v\s+$//e
   " autoformat Go files on save
-  autocmd BufWritePre *.go :%! goimports
+  autocmd BufWritePre *.go,*.rs,*.rb :Format
   " cleans git-related buffers opened by fugitive plugin
   autocmd BufReadPost fugitive://* set bufhidden=delete
   " maps `..` to going level up in a fugitive representation of git tree
