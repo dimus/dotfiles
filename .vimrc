@@ -8,11 +8,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim' " fuzzy search with lua
 
-  " LSP plugins
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'nvim-lua/completion-nvim'
-  " Plug 'tjdevries/nlua.nvim'
-  " Plug 'tjdevries/lsp_extensions.nvim'
+"  LSP plugins
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-lua/completion-nvim'
+  Plug 'tjdevries/nlua.nvim'
+  Plug 'tjdevries/lsp_extensions.nvim'
 
 " highlight
   Plug 'nanotech/jellybeans.vim' " jellybeans color schema
@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mbbill/undotree' " nonlinear undo UI
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
   Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
   Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
   Plug 'tpope/vim-fugitive' " git
@@ -407,7 +407,7 @@ au BufRead /tmp/psql.edit.* set syntax=sql
   " delete trailing space
   autocmd BufWritePre *.rb,*.treetop,*.md,*.scala,*.xml,*.hs,*.lhs,*.pl,*.py,*.tex,*.lsl,*.gemspec,*.haml,*.yml,*.json,*.rs :%s/\v\s+$//e
   " autoformat Go files on save
-  autocmd BufWritePre *.go,*.rs,*.rb :Format
+  " autocmd BufWritePre *.go,*.rs,*.rb :Format
   " cleans git-related buffers opened by fugitive plugin
   autocmd BufReadPost fugitive://* set bufhidden=delete
   " maps `..` to going level up in a fugitive representation of git tree
@@ -424,27 +424,3 @@ command! Case lua require('test').changeCase()
 
 " MaximizeToggle from vim-maximizer
 nnoremap <leader>m :MaximizerToggle<CR>
-
-" Debugger from vimspector
-nnoremap <leader>dd call :vimspector#Launch()<CR>
-nnoremap <leader>de call :vimspector#Reset()<CR>
-
-nnoremap <leader>dc call :vimspector#GotoWindow(g:vimspector_session_windows.code)<CR>
-nnoremap <leader>dt call :vimspector#GotoWindow(g:vimspector_session_windows.tagpage)<CR>
-nnoremap <leader>dv call :vimspector#GotoWindow(g:vimspector_session_windows.variables)<CR>
-nnoremap <leader>dw call :vimspector#GotoWindow(g:vimspector_session_windows.watches)<CR>
-nnoremap <leader>ds call :vimspector#GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
-nnoremap <leader>do call :vimspector#GotoWindow(g:vimspector_session_windows.output)<CR>
-
-nnoremap <leader>dtcb call :vimspector#CleanLineBreakpoint()<CR>
-
-nnoremap <leader>dl <Plug>VimspectorStepInto
-nnoremap <leader>dj <Plug>VimspectorStepOver
-nnoremap <leader>dk <Plug>VimspectorStepOut
-nnoremap <leader>d_ <Plug>VimspectorRestart
-nnoremap <leader>d<space> call :vimspector#Continue()<CR>
-
-nnoremap <leader>drc <Plug>VimspectorRunToCursor
-nnoremap <leader>dbp <Plug>VimspectorToggleBreakpoint
-nnoremap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
-
