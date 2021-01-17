@@ -14,6 +14,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'tjdevries/nlua.nvim'
   Plug 'tjdevries/lsp_extensions.nvim'
 
+" debugger
+  Plug 'mfussenegger/nvim-dap'
+
 " highlight
   Plug 'nanotech/jellybeans.vim' " jellybeans color schema
   Plug 'cespare/vim-toml' " syntax highlighting for toml files
