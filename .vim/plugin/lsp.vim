@@ -1,5 +1,6 @@
 set completeopt=menuone,noinsert,noselect
 autocmd BufWritePre *.go,*.rst,*.rb :lua vim.lsp.buf.formatting()
+command! -nargs=0 OR   :%!goimports
 
 lua << EOF
   local nvim_lsp = require('lspconfig')
