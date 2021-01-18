@@ -56,7 +56,9 @@ add-highlighter global/ dynregex '%opt{curword}' 0:CurWord
 # Custom mappings
 # ───────────────
 
-map global normal = ':prompt math: %{exec "a%val{text}<lt>esc>|bc<lt>ret>"}<ret>'
+# map global normal = ':prompt math: %{exec "a%val{text}<lt>esc>|bc<lt>ret>"}<ret>'
+
+map global normal = '|fmt -w $kak_opt_autowrap_column<ret>'
 
 # # System clipboard handling
 # # ─────────────────────────
