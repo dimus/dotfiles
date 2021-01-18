@@ -98,7 +98,6 @@ call plug#end()
   set hidden " removes warning when switching between buffers without saving them first
   set shortmess+=filmnrxoOtT      " abbrev. of messages (avoids 'hit enter')
   filetype plugin indent on   " Automatically detect file types.
-  syntax on           " syntax highlighting
   set visualbell " makes visual bell instead of sound
   set noerrorbells " no beep on errors
   set t_Co=256 " 256 colors in vim
@@ -249,10 +248,12 @@ call plug#end()
 " }
 
 " Colors {
+  syntax on           " syntax highlighting
   colorscheme jellybeans
   " transparent background
   hi Normal guibg=NONE ctermbg=NONE
   hi! NonText ctermbg=NONE guibg=NONE
+  let g:vimsyn_embed='lPr' " fix embedded lua highlight
 
   " 80 column border is grey
   hi ColorColumn ctermbg=236 guibg=#303030
