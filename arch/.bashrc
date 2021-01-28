@@ -160,7 +160,12 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 eval "$(starship init bash)"
 eval "$(jump shell)"
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+
+export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$HOME/../linuxbrew/.linuxbrew/bin:$PATH"
+export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 
 source /home/dimus/.config/broot/launcher/bash/br
 
 eval $(keychain --eval --quiet id_rsa id_rsa_gina)
+
