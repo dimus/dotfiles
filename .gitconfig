@@ -48,3 +48,5 @@
 	insteadOf = https://gitlab.com/
 [pull]
 	rebase = true
+[init]
+	defaultBranch = master
