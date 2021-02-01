@@ -148,6 +148,13 @@ source $HOME/git-completion.bash
 
 # export PAGER='vim -R -u ~/.vimrcpg -'
 
+cover() {
+  local t=$(mktemp -t cover.XXXXXXX)
+  go test $COVERFLAGS -coverprofile=$t $@ \
+    && go tool cover -func=$t \
+    && unlink $t
+}
+
 eval "$(rbenv init -)"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
