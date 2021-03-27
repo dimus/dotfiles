@@ -34,15 +34,8 @@ call plug#begin('~/.vim/plugged')
   " Plug 'puremourning/vimspector'
   Plug 'szw/vim-maximizer' " toggle window from bigto small
   Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
-  Plug 'nvim-treesitter/playground'
+  " Plug 'nvim-treesitter/playground'
 call plug#end()
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
-  highlight = { enable = true },
-}
-EOF
 
 " nvim-colorizer
 set termguicolors
