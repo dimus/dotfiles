@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+curl -s "https://archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" |sudo awk '/Server/' |sed 's/#//'|rankmirrors -n 25 - > /tmp/mirrorlist
+
+sudo mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
+sudo mv /tmp/mirrorlist /etc/pacman.d/mirrorlist
