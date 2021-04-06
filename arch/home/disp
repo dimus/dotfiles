@@ -4,7 +4,7 @@ disps=$(/usr/bin/xrandr)
 if [[ ${disps} =~ "HDMI-0 connected" ]]; then
   # /usr/bin/xrandr --output eDP-1-1 --mode 1920x1080 --primary
   /usr/bin/xrandr --output eDP-1-1 --off
-  # /usr/bin/xrandr --output HDMI-0 --mode 3440x1440 --left-of eDP-1-1
+  # /usr/bin/xrandr --output HDMI-0 --mode 3440x1440 --right-of eDP-1-1
   /usr/bin/xrandr --output HDMI-0 --mode 3440x1440 --primary
   # /usr/bin/xrandr --output HDMI-0 --mode 2560x1080 --primary
 elif [[ $disps =~ "DP-0 connected" ]]; then

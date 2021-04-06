@@ -35,12 +35,10 @@ fi
 # eval $(ssh-agent)
 # ssh-add
 
-# disp
+disp
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
-compton -b
+# compton -b
 # urxvtd -q -f -o
 setxkbmap -option 'ctrl:nocaps' -option 'compose:ralt' -option 'compose:rctrl' -option 'grp:alt_space_toggle' -layout us,ru -variant ,mac
 # setxkbmap -option 'ctrl:nocaps' -option 'compose:ralt' -option 'compose:rctrl' -option 'grp:alt_space_toggle' -layout us,de -variant ,qwerty
 xmonad
-# exec i3 --shmlog-size=26214400
-# exec i3

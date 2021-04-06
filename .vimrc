@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged')
   " Plug 'puremourning/vimspector'
   Plug 'szw/vim-maximizer' " toggle window from bigto small
   Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
+  Plug 'voldikss/vim-translator'
   " Plug 'nvim-treesitter/playground'
 call plug#end()
 
@@ -43,6 +44,14 @@ lua require'colorizer'.setup()
 
 " vim-rainbow parentheses
 let g:rainbow_active = 1
+
+" vim translator
+
+let g:translator_target_lang = "en"
+let g:translator_default_engines = ['bing', 'google']
+" Echo translation in the cmdline
+nmap <silent> <Leader>t <Plug>Translate
+vmap <silent> <Leader>t <Plug>TranslateV
 
 " pgsql plugin for sql queries
 let g:sql_type_default = 'pgsql'
