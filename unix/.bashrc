@@ -82,9 +82,9 @@ alias egrep='egrep --color=auto'
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# alias ll='ls -alF'
+# alias la='ls -A'
+# alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -138,7 +138,7 @@ export JDK_HOME=$JAVA_HOME
 
 export MPD_HOST=0.0.0.0
 
-export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$PATH:/home/linuxbrew/.linuxbrew/bin"
+export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:$PATH:/home/linuxbrew/.linuxbrew/bin:$HOME/.binenv"
 export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
 
 cf() { find ~/src/dotfiles ~/.config -type f -not -path '*/.git/*'| fzf | xargs -r $EDITOR; }
@@ -171,3 +171,4 @@ eval "$(jump shell)"
 source /home/dimus/.config/broot/launcher/bash/br
 
 eval $(keychain --eval --quiet id_rsa id_rsa_gina)
+source <(binenv completion bash)

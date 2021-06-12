@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/usr/bin/rsync -Pav /home/dimus/tmp/gndict/dict/ /home/dimus/go/src/github.com/gnames/gnfinder/data/files/
+/usr/bin/rsync -Pav /home/dimus/tmp/gndict/dict/ /home/dimus/go/src/github.com/gnames/gnfinder/io/dict/data
 

@@ -50,8 +50,8 @@ let g:rainbow_active = 1
 let g:translator_target_lang = "en"
 let g:translator_default_engines = ['bing', 'google']
 " Echo translation in the cmdline
-nmap <silent> <Leader>t <Plug>Translate
-vmap <silent> <Leader>t <Plug>TranslateV
+nmap <silent> tt <Plug>Translate
+vmap <silent> tt <Plug>TranslateV
 
 " pgsql plugin for sql queries
 let g:sql_type_default = 'pgsql'
