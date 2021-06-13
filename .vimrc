@@ -21,7 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'mbbill/undotree' " nonlinear undo UI
   Plug 'mechatroner/rainbow_csv' " color csv fields
   Plug 'mzlogin/vim-markdown-toc' "TOC for markdown
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'tomtom/tcomment_vim' " auto commenting/uncommenting
   Plug 'tpope/vim-eunuch' " Unix commands like :Delete :Move for buf and file.
   Plug 'tpope/vim-fugitive' " git
@@ -36,7 +36,33 @@ call plug#begin('~/.vim/plugged')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
   Plug 'voldikss/vim-translator'
   " Plug 'nvim-treesitter/playground'
+  Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 call plug#end()
+
+" go vim
+let g:go_list_type = "quickfix"    " error lists are of type quickfix
+let g:go_fmt_command = "goimports" " automatically format and rewrite imports
+let g:go_auto_sameids = 1          " highlight matching identifiers
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
+autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>t <Plug>(go-test)
+
+autocmd FileType go setlocal foldmethod=expr foldexpr=getline(v:lnum)=~'^\s*'.&commentstring[0]
+
+let g:go_list_type = "quickfix"    " error lists are of type quickfix
+let g:go_fmt_command = "goimports" " automatically format and rewrite imports
+let g:go_auto_sameids = 1          " highlight matching identifiers
 
 " nvim-colorizer
 set termguicolors
@@ -437,6 +463,17 @@ au BufRead /tmp/psql.edit.* set syntax=sql
 "===============================================================================
 " Coc Settings
 "===============================================================================
+
+set hidden
+set cmdheight=1
+set updatetime=300
+set shortmess+=c
+if has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
 " Give more space for displaying messages.
 " set cmdheight=1
 
@@ -573,6 +610,7 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
 "===============================================================================
 " End Coc settings
 "===============================================================================
