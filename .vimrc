@@ -42,7 +42,7 @@ call plug#end()
 " go vim
 let g:go_list_type = "quickfix"    " error lists are of type quickfix
 let g:go_fmt_command = "goimports" " automatically format and rewrite imports
-let g:go_auto_sameids = 1          " highlight matching identifiers
+" let g:go_auto_sameids = 1          " highlight matching identifiers
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
@@ -58,11 +58,11 @@ autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>t <Plug>(go-test)
 
-autocmd FileType go setlocal foldmethod=expr foldexpr=getline(v:lnum)=~'^\s*'.&commentstring[0]
+autocmd FileType go setlocal foldmethod=syntax foldlevel=10
 
 let g:go_list_type = "quickfix"    " error lists are of type quickfix
 let g:go_fmt_command = "goimports" " automatically format and rewrite imports
-let g:go_auto_sameids = 1          " highlight matching identifiers
+" let g:go_auto_sameids = 1          " highlight matching identifiers
 
 " nvim-colorizer
 set termguicolors
@@ -98,7 +98,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " autocmd! BufWritePost * Neomake
 
 " General {
-  
+
   " set guifont=FiraCode:h14
   let mapleader="\<Space>"
   let maplocalleader=","
