@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd $HOME
+go get -u golang.org/x/tools/...
+cd -
