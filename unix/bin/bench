@@ -1,0 +1,3 @@
+#!/bin/sh
+
+go test -bench=. -benchmem -count=10 -run=XXX > bench.txt && benchstat bench.txt
