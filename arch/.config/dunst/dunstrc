@@ -24,7 +24,7 @@
     sort = yes
 
     idle_threshold = 120
-    font = Monospace 14
+    font = DejaVu Sans Mono Font 12
     line_height = 0
     markup = full
 
@@ -82,7 +82,7 @@
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#458588"
+    background = "#006600"
     foreground = "#ebdbb2"
     timeout = 5
 

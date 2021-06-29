@@ -109,6 +109,7 @@ font:
     # family: FiraMono Nerd Font
     # # *****
     family: Hack Nerd Font # family: Mononoki Nerd Font
+    family: DejaVu Sans Mono Nerd Font
     # # *****
     # family: Go Mono Nerd Font
 
