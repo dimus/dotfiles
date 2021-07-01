@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/nitrogen --set-zoom --random --save --head=0 --set-color=#000000
+/usr/bin/nitrogen --set-zoom --random --save --head=1 --set-color=#000000

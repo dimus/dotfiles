@@ -139,10 +139,10 @@ fi
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool xorg-xkill
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcmanfm xorg-xfontsel xorg-xlsfonts xorg-xprop
 sudo /usr/bin/pacman -S --noconfirm --needed xf86-input-wacom alacritty
-sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst conky compton unclutter
+sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst compton unclutter
 sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox firefox-i18n-en-us chromium gimp powerline
 sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code
-sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol 
+sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol
 # change noto-fonts-emoji to ttf-symbola AUR
 # dejavu gives extended characters that are missed in other fonts
 sudo /usr/bin/pacman -S --noconfirm --needed ttf-dejavu
@@ -184,10 +184,16 @@ rm -f ~/bin/solti
 ln -s ~/src/dotfiles/unix/bin/solti ~/bin/solti
 rm -f ~/bin/trim
 ln -s ~/src/dotfiles/unix/bin/trim ~/bin/trim
-rm ~/.config/liquidpromptrc
-ln -s ~/src/dotfiles/arch/.config/liquidpromptrc ~/.config/liquidpromptrc
+rm -f ~/bin/ru
+ln -s ~/src/dotfiles/unix/bin/ru ~/bin/ru
+rm -f ~/bin/de
+ln -s ~/src/dotfiles/unix/bin/de ~/bin/de
+rm -f ~/bin/nitro
+ln -s ~/src/dotfiles/unix/bin/nitro ~/bin/nitro
 rm -f ~/bin/weather
 ln -s ~/src/dotfiles/unix/bin/weather ~/bin/weather
+rm -rf ~/.xsession
+ln -s ~/src/dotfiles/arch/.xsession ~/.xsession
 rm -rf ~/.xmonad
 ln -s ~/src/dotfiles/.xmonad ~/.xmonad
 rm -rf ~/.config/xmobar
