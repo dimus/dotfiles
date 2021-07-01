@@ -144,7 +144,7 @@ vicd()
     cd "$dst"
 }
 
-export EDITOR=/usr/ocal/bin/nvim
+export EDITOR=/usr/local/bin/nvim
 export PSQL_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export TERMINAL=alacritty
