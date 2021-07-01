@@ -3,7 +3,7 @@ Description=Changes background
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/nitrogen --set-zoom --random --set-color=#000000 --save
+ExecStart=/home/dimus/bin/nitro
 
 [Install]
 WantedBy=default.target
