@@ -159,6 +159,7 @@ export JDK_HOME=$JAVA_HOME
 export MPD_HOST=0.0.0.0
 
 path_prepend "$HOME/bin"
+path_prepend "$HOME/.rbenv/bin"
 path_prepend "$GOROOT/bin"
 path_prepend "$GOPATH/bin"
 path_prepend "$HOME/.local/bin"
