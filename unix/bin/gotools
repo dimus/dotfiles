@@ -2,4 +2,5 @@
 
 cd $HOME
 go get -u golang.org/x/tools/...
+go get github.com/gsamokovarov/jump
 cd -

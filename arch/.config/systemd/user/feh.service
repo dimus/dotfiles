@@ -3,7 +3,7 @@ Description=Changes background
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/feh --bg-max --randomize /home/USER/Pictures/wallpapers
+ExecStart=/usr/bin/nitrogen --set-zoom --random --set-color=#000000 --save
 
 [Install]
 WantedBy=default.target

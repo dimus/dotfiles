@@ -272,7 +272,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --
     [((m .|. modm, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
     ++
 
     --
@@ -449,7 +449,7 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
                 ]
 
   where
-    spawnCalc = myTerminal ++ " -t calc -e 'irb'"
+    spawnCalc = myTerminal ++ " -t calc -e '/home/dimus/.rbenv/shims/irb'"
     findCalc = title =? "calc"
     manageCalc = customFloating $ W.RationalRect l t w h
                  where
@@ -467,7 +467,7 @@ myScratchpads = [ NS "calc" spawnCalc findCalc manageCalc
                    t = 0.95 - h
                    l = 0.95 - w
 
-    spawnSolanum = myTerminal ++ " -t solanum --config-file /home/dimus/.config/alacritty/sol.yml -e 'solanum'"
+    spawnSolanum = myTerminal ++ " -t solanum --config-file /home/dimus/.config/alacritty/sol.yml -e '/home/dimus/go/bin/solanum'"
     findSolanum = title =? "solanum"
     manageSolanum = customFloating $ W.RationalRect l t w h
                  where

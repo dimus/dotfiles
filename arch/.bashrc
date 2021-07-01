@@ -25,6 +25,26 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 #shopt -s globstar
 
+# Use these functions to avoid doubles in PATH due to bashrc running several
+# times
+path_prepend() {
+    local arg
+    for arg in "$@"; do
+        if [[ ":${PATH}:" != *":${arg}:"* ]]; then
+            export PATH="${arg}${PATH:+":$PATH"}"
+        fi
+    done
+}
+
+path_append() {
+    local arg
+    for arg in "$@"; do
+        if [[ ":${PATH}:" != *":${arg}:"* ]]; then
+            export PATH="${PATH:+"$PATH:"}${arg}"
+        fi
+    done
+}
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -124,7 +144,7 @@ vicd()
     cd "$dst"
 }
 
-export EDITOR=$HOME/.local/bin/nvim
+export EDITOR=/usr/ocal/bin/nvim
 export PSQL_EDITOR=$EDITOR
 export VISUAL=$EDITOR
 export TERMINAL=alacritty
@@ -138,8 +158,13 @@ export JDK_HOME=$JAVA_HOME
 
 export MPD_HOST=0.0.0.0
 
-export PATH=$HOME/.local/bin:"$HOME/bin:$GOPATH/bin:$GOROOT/bin:$JAVA_HOME/bin:$HOME/.cargo/bin:$HOME/.rbenv/bin:/home/linuxbrew/.linuxbrew/bin:$PATH"
-export PATH="$(du $HOME/.scripts/ | cut -f2 | tr '\n' ':')$PATH"
+path_prepend "$HOME/bin"
+path_prepend "$GOROOT/bin"
+path_prepend "$GOPATH/bin"
+path_prepend "$HOME/.local/bin"
+
+path_append "/home/linuxbrew/.linuxbrew/bin"
+path_append "$JAVA_HOME/bin"
 
 cf() { find ~/src/dotfiles ~/.config -type f -not -path '*/.git/*'| fzf | xargs -r $EDITOR; }
 gf() { cd $(find ~/go/src/github.com/dimus ~/go/src/github.com/gnames ~/go/src/gitlab.com/gogna ~/code/go -maxdepth 1 -type d | fzf); }
@@ -172,3 +197,4 @@ eval "$(jump shell)"
 source /home/dimus/.config/broot/launcher/bash/br
 
 eval $(keychain --eval --quiet id_rsa id_rsa_gina)
+. "$HOME/.cargo/env"

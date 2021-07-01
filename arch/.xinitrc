@@ -36,6 +36,7 @@ fi
 # ssh-add
 
 disp
+nitr
 # [[ ! -s ~/.config/mpd/pid ]] && mpd
 # compton -b
 # urxvtd -q -f -o
