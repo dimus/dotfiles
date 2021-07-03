@@ -1,3 +1,4 @@
+""" config file for Qtile windows manager"""
 # -*- coding: utf-8 -*-
 import os
 import re
@@ -8,136 +9,24 @@ from libqtile.config import Click, Drag, Group, KeyChord, Key, Match, Screen
 from libqtile.config import ScratchPad, DropDown
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
-from libqtile.lazy import lazy
 from typing import List  # noqa: F401
 
-
-def toggle_group_empty():
-    pass
-
-
-lazy.screen.toggle_group = toggle_group_empty
-
-mod = "mod4"  # Sets mod key to SUPER/WINDOWS
-myTerm = "alacritty"  # My terminal of choice
-
-###############################################################################
-# Computer Screens                                                            #
-###############################################################################
-
-keys = [
-    Key([mod], "s", lazy.spawn("steam-runtime")),
-    ### The essentials
-    Key([mod], "Return", lazy.spawn(myTerm)),
-    Key([mod], "Escape", lazy.spawn('xkill')),
-    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -p 'Run: '")),
-    Key([mod], "space", lazy.next_layout(), desc='Toggle through layouts'),
-    Key([mod], "q", lazy.window.kill(), desc='Kill active window'),
-    Key([mod, "shift"], "r", lazy.restart(), desc='Restart Qtile'),
-    Key([mod], "Left", lazy.next_screen(), desc='Move focus to next monitor'),
-    Key([mod], "Right", lazy.prev_screen(), desc='Move focus to prev monitor'),
-
-    ### Window controls
-    Key([mod],
-        "j",
-        lazy.layout.down(),
-        desc='Move focus down in current stack pane'),
-    Key([mod],
-        "k",
-        lazy.layout.up(),
-        desc='Move focus up in current stack pane'),
-    Key([mod, "shift"],
-        "j",
-        lazy.layout.shuffle_down(),
-        lazy.layout.section_down(),
-        desc='Move windows down in current stack'),
-    Key([mod, "shift"],
-        "k",
-        lazy.layout.shuffle_up(),
-        lazy.layout.section_up(),
-        desc='Move windows up in current stack'),
-    Key([mod],
-        "h",
-        lazy.layout.shrink(),
-        lazy.layout.decrease_nmaster(),
-        desc='Shrink window (MonadTall), decrease number in master pane (Tile)'
-        ),
-    Key([mod],
-        "l",
-        lazy.layout.grow(),
-        lazy.layout.increase_nmaster(),
-        desc='Expand window (MonadTall), increase number in master pane (Tile)'
-        ),
-    Key([mod],
-        "n",
-        lazy.layout.normalize(),
-        desc='normalize window size ratios'),
-    Key([mod],
-        "m",
-        lazy.layout.maximize(),
-        desc='toggle window between minimum and maximum sizes'),
-    Key([mod, "shift"],
-        "space",
-        lazy.window.toggle_floating(),
-        desc='toggle floating'),
-    Key([mod], "f", lazy.window.toggle_fullscreen(), desc='toggle fullscreen'),
-
-    # Dmenu scripts launched using the key chord SUPER+p followed by 'key'
-    KeyChord(
-        [mod],
-        "p",
-        [
-            Key([],
-                "e",
-                lazy.spawn("dm-confedit"),
-                desc='Choose a config file to edit'),
-            # Key([], "i",
-            #     lazy.spawn("./dmscripts/dm-maim"),
-            #     desc='Take screenshots via dmenu'
-            #     ),
-            Key([],
-                "k",
-                lazy.spawn("dm-kill"),
-                desc='Kill processes via dmenu'),
-            # Key([], "l",
-            #     lazy.spawn("./dmscripts/dm-logout"),
-            #     desc='A logout menu'
-            #     ),
-            # Key([], "m",
-            #     lazy.spawn("./dmscripts/dm-man"),
-            #     desc='Search manpages in dmenu'
-            #     ),
-            # Key([], "o",
-            #     lazy.spawn("./dmscripts/dm-bookman"),
-            #     desc='Search your qutebrowser bookmarks and quickmarks'
-            #     ),
-            # Key([], "r",
-            #     lazy.spawn("./dmscripts/dm-reddit"),
-            #     desc='Search reddit via dmenu'
-            #     ),
-            # Key([], "s",
-            #     lazy.spawn("./dmscripts/dm-websearch"),
-            #     desc='Search various search engines via dmenu'
-            #     ),
-            Key([],
-                "p",
-                lazy.spawn("passmenu"),
-                desc='Retrieve passwords with dmenu')
-        ])
-]
+from constants import MOD, MY_TERM
+from shortcuts import MyKeys
+from scratchpads import MyScratchPad
 
 group_names = [
-        ("1", { 'layout': 'monadtall' }),
-        ("2", { 'layout': 'monadtall' }),
-        ("3", { 'layout': 'monadtall' }),
-        ("4", { 'layout': 'monadtall' }),
-        ("5", { 'layout': 'monadtall' }),
-        ("6", { 'layout': 'monadtall' }),
-        ("7", { 'layout': 'monadtall' }),
-        ("8", { 'layout': 'monadtall' }),
-        ("9", { 'layout': 'monadtall' }),
-        ("0", { 'layout': 'floating' }),
-        ]
+    ("1", {'layout': 'monadtall'}),
+    ("2", {'layout': 'monadtall'}),
+    ("3", {'layout': 'monadtall'}),
+    ("4", {'layout': 'monadtall'}),
+    ("5", {'layout': 'monadtall'}),
+    ("6", {'layout': 'monadtall'}),
+    ("7", {'layout': 'monadtall'}),
+    ("8", {'layout': 'monadtall'}),
+    ("9", {'layout': 'monadtall'}),
+    ("0", {'layout': 'floating'}),
+]
 
 pinned_groups = ['123456789', '0']
 
@@ -145,51 +34,19 @@ all_groups = ''.join(pinned_groups)
 
 groups = [Group(i, **group_names[ind][1]) for ind, i in enumerate(all_groups)]
 
+keys = MyKeys.keys_win_manager() + MyKeys.keys_layout() + \
+    MyKeys.keys_app_launcher()
+
 for j, names in enumerate(pinned_groups):
     keys.extend(
-        Key([mod], i, lazy.to_screen(j), lazy.group[i].toscreen(screen=None,
+        Key([MOD], i, lazy.to_screen(j), lazy.group[i].toscreen(screen=None,
                                                                 toggle=False))
         for i in names)
 
-###############################################################################
-# Sratch Pads                                                                 #
-###############################################################################
+keys.extend(Key([MOD, 'shift'], i, lazy.window.togroup(i)) for i in all_groups)
 
-dropdowns = [
-    DropDown("calc",
-             myTerm + " -t calc -e '/home/dimus/.rbenv/shims/irb'",
-             x=0.05,
-             y=0.3,
-             width=0.3,
-             height=0.3,
-             on_focus_lost_hide=False),
-    DropDown("term",
-             myTerm + " -t term",
-             x=0.05,
-             y=0.01,
-             width=0.9,
-             height=0.9,
-             on_focus_lost_hide=False),
-    DropDown(
-        "solanum",
-        "alacritty -t solanum --config-file /home/dimus/.config/alacritty/sol.yml -e '/home/dimus/go/bin/solanum'",
-        x=0.05,
-        y=0.01,
-        width=0.9,
-        height=0.3,
-        on_focus_lost_hide=False),
-]
-
-scrpad = ScratchPad("scratchpad", dropdowns)
-
-groups.append(scrpad)
-
-keys.extend(Key([mod, 'shift'], i, lazy.window.togroup(i)) for i in all_groups)
-
-keys.append(Key([mod], "z", lazy.group["scratchpad"].dropdown_toggle("term")))
-keys.append(
-    Key([mod], "x", lazy.group["scratchpad"].dropdown_toggle("solanum")))
-keys.append(Key([mod], "a", lazy.group["scratchpad"].dropdown_toggle("calc")))
+groups.append(MyScratchPad.pad())
+keys += MyKeys.keys_scratchpad()
 
 ###############################################################################
 # Layouts                                                                     #
@@ -252,7 +109,7 @@ def init_widgets_list():
         widget.Image(
             filename="~/.config/qtile/icons/python-white.png",
             scale="False",
-            mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(myTerm)}),
+            mouse_callbacks={'Button1': lambda: qtile.cmd_spawn(MY_TERM)}),
         widget.Sep(linewidth=0,
                    padding=20,
                    foreground=colors[2],
@@ -311,7 +168,7 @@ def init_widgets_list():
                       foreground=colors[3],
                       mouse_callbacks={
                           'Button1':
-                          lambda: qtile.cmd_spawn(myTerm + ' -e htop')
+                          lambda: qtile.cmd_spawn(MY_TERM + ' -e htop')
                       },
                       padding=5),
 
@@ -319,7 +176,7 @@ def init_widgets_list():
         delim,
         widget.CPU(foreground=colors[10], ),
 
-        #Volume widget
+        # Volume widget
         delim,
         widget.TextBox(text="🔉︁", foreground=colors[5], padding=5),
         widget.Volume(
@@ -382,15 +239,15 @@ if __name__ in ["config", "__main__"]:
     widgets_screen2 = init_widgets_screen2()
 
 mouse = [
-    Drag([mod],
+    Drag([MOD],
          "Button1",
          lazy.window.set_position_floating(),
          start=lazy.window.get_position()),
-    Drag([mod],
+    Drag([MOD],
          "Button3",
          lazy.window.set_size_floating(),
          start=lazy.window.get_size()),
-    Click([mod], "Button2", lazy.window.bring_to_front())
+    Click([MOD], "Button2", lazy.window.bring_to_front())
 ]
 
 dgroups_key_binder = None
@@ -421,12 +278,5 @@ def start_once():
     subprocess.call([home + '/.config/qtile/autostart.sh'])
 
 
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
+"""makes java progs happy"""
 wmname = "LG3D"
