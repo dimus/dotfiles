@@ -3,4 +3,5 @@
 cd $HOME
 go get -u golang.org/x/tools/...
 go get github.com/gsamokovarov/jump
+go get github.com/sabhiram/go-wol/cmd/wol
 cd -

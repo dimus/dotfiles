@@ -141,7 +141,7 @@ def init_widgets_list():
         ################################################################################
 
         # Network widget
-        widget.Net(interface="enp2s0",
+        widget.Net(interface="all",
                    format='\uf0ab {down} \uf0aa {up}',
                    fontsize=18,
                    foreground=colors[8],

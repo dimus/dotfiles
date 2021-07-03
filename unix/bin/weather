@@ -1,3 +1,3 @@
 #!/bin/sh
 
-curl -s 'wttr.in/61874?format=v2'
+curl -s 'v2d.wttr.in/61874'
