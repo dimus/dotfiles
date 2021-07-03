@@ -12,4 +12,6 @@ init.vim
 .config/vifm/vifminfo
 .config/vifm/vifminfo.json
 arch/.config/nitrogen/bg-saved.cfg
+__pycache__
+*.pyc
 
