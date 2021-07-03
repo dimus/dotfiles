@@ -162,6 +162,8 @@ def init_widgets_list():
             charge_char = '',
             discharge_char = '',
             empty_char = '',
+            full_char = '',
+            show_short_text = False,
             format = '{char}  {percent:2.0%} {hour:d}:{min:02d}',
             padding=2,
             foreground=colors[7]),
