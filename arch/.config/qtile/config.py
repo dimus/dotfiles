@@ -12,7 +12,9 @@ from libqtile import layout, bar, widget, hook
 from typing import List  # noqa: F401
 
 from constants import MOD, MY_TERM
+# key bindings
 from shortcuts import MyKeys
+# scratchpad windows like calculator, terminal, solanum
 from scratchpads import MyScratchPad
 
 group_names = [
@@ -142,18 +144,27 @@ def init_widgets_list():
 
         # Network widget
         widget.Net(interface="all",
-                   format='\uf0ab {down} \uf0aa {up}',
+            format='\uf0ab {down} \uf0aa {up}',
                    fontsize=18,
                    foreground=colors[8],
                    padding=5),
 
-        # Layouts widget
+        # CPU widget
         delim,
-        widget.CurrentLayoutIcon(
-            custom_icon_paths=[os.path.expanduser("~/.config/qtile/icons")],
-            padding=4,
-            scale=0.7),
-        widget.CurrentLayout(foreground=colors[7], ),
+        widget.CPU(
+                format = '  {freq_current}GHz  {load_percent}%',
+                foreground=colors[10],
+                ),
+
+        # Battery widget
+        delim,
+        widget.Battery(
+            charge_char = '',
+            discharge_char = '',
+            empty_char = '',
+            format = '{char}  {percent:2.0%} {hour:d}:{min:02d}',
+            padding=2,
+            foreground=colors[7]),
 
         # Temperature widget
         delim,
@@ -171,10 +182,6 @@ def init_widgets_list():
                           lambda: qtile.cmd_spawn(MY_TERM + ' -e htop')
                       },
                       padding=5),
-
-        # CPU widget
-        delim,
-        widget.CPU(foreground=colors[10], ),
 
         # Volume widget
         delim,
