@@ -4,7 +4,7 @@
 dunst &
 
 # start compositor
-picom &
+picom --backend glx --vsync --experimental-backends &
 
 #start sxhkd to replace Qtile native key-bindings
 sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
