@@ -16,9 +16,10 @@ class MyKeys:
 
         res = [
             Key([MOD], "s", lazy.spawn("steam-runtime")),
-            # The essentials
             Key([MOD], "Return", lazy.spawn(MY_TERM)),
+            Key([MOD, "shift"], "f", lazy.spawn("pcmanfm")),
             Key([MOD], "Escape", lazy.spawn('xkill')),
+
             Key([MOD], "space", lazy.next_layout(),
                 desc='Toggle through layouts'),
             Key([MOD], "q", lazy.window.kill(),
