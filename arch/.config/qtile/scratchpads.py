@@ -11,7 +11,7 @@ class MyScratchPad:
     @staticmethod
     def pad():
         """ pad method provides required scratchpads. The shortcuts for
-        the scratchpads are located in shortcuts module keys_scratchpad
+        the scratchpads are located in `keys` module keys_scratchpad
         static method."""
         dropdowns = [
             DropDown("calc",

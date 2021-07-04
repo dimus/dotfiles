@@ -3,13 +3,13 @@
 import os
 import subprocess
 from libqtile import qtile
-from libqtile.config import Key, Match
+from libqtile.config import Key, Match, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, hook
 
 from constants import MOD
 # key bindings
-from shortcuts import MyKeys
+from keys import MyKeys
 # scratchpad windows like calculator, terminal, solanum
 from scratchpads import MyScratchPad
 # top panel and screens
@@ -85,10 +85,19 @@ floating_layout = layout.Floating(float_rules=[
     *layout.Floating.default_float_rules,
     Match(title='Confirmation'),  # tastyworks exit box
     Match(title='Qalculate!'),  # qalculate-gtk
+    Match(title='Bluetooth'),  # qalculate-gtk
     Match(title='GNU Image Manipulation Program'),  # gimp
     Match(wm_class='kdenlive'),  # kdenlive
     Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
 ])
+
+mouse = [
+    Drag([MOD], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag([MOD], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click([MOD], "Button2", lazy.window.bring_to_back())
+]
 
 @hook.subscribe.startup_once
 def start_once():

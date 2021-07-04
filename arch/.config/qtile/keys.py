@@ -2,7 +2,7 @@
 from libqtile.config import Key, KeyChord
 from libqtile.command import lazy
 
-from constants import MOD, MY_TERM
+from constants import ALT, MOD, MY_TERM
 
 
 class MyKeys:
@@ -18,6 +18,7 @@ class MyKeys:
             Key([MOD], "s", lazy.spawn("steam-runtime")),
             Key([MOD], "Return", lazy.spawn(MY_TERM)),
             Key([MOD, "shift"], "f", lazy.spawn("pcmanfm")),
+            Key([ALT], "f", lazy.spawn("firefox")),
             Key([MOD], "Escape", lazy.spawn('xkill')),
 
             Key([MOD], "space", lazy.next_layout(),
