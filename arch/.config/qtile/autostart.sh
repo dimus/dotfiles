@@ -13,3 +13,4 @@ sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 flameshot &
 optimus-manager-qt &
 nm-applet &
+blueberry-tray &

@@ -45,6 +45,7 @@ alias cw="cargo watch -x"
 alias scr="sudo btrfs scrub status /"
 alias re="rustc --explain"
 alias kbar="killall -q xmobar"
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 if [ -f $HOME/.bash_aliases_local ]; then
   source $HOME/.bash_aliases_local
