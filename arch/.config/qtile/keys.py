@@ -18,8 +18,11 @@ class MyKeys:
             Key([MOD], "s", lazy.spawn("steam-runtime")),
             Key([MOD], "Return", lazy.spawn(MY_TERM)),
             Key([MOD, "shift"], "f", lazy.spawn("pcmanfm")),
-            Key([ALT], "f", lazy.spawn("firefox")),
             Key([MOD], "Escape", lazy.spawn('xkill')),
+
+            Key([ALT], "f", lazy.spawn("firefox")),
+            Key([ALT], "c", lazy.spawn("cantata")),
+            Key([ALT], "s", lazy.spawn("sol")),
 
             Key([MOD], "space", lazy.next_layout(),
                 desc='Toggle through layouts'),
