@@ -13,7 +13,7 @@ from keys import MyKeys
 # scratchpad windows like calculator, terminal, solanum
 from scratchpads import MyScratchPad
 # top panel and screens
-from panel import MyPanel
+from bar import MyPanel
 # workspaces
 from workspaces import MyWorkspaces
 

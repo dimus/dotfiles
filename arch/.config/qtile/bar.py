@@ -163,7 +163,7 @@ class MyPanel:
                 python_icon(),
                 delim_empty(20),
                 workspaces(),
-                delim_empty(40),
+                delim_empty(10),
                 win_title(),
 
                 widget_network(),
