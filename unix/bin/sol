@@ -1,0 +1,3 @@
+#!/bin/sh
+
+alacritty -t solanum --config-file $HOME/.config/alacritty/sol.yml -e $HOME/go/bin/solanum
