@@ -91,14 +91,6 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
 ])
 
-mouse = [
-    Drag([MOD], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([MOD], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([MOD], "Button2", lazy.window.bring_to_back())
-]
-
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser('~')
