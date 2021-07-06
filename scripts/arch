@@ -72,7 +72,8 @@ mkdir ~/tmp
 sudo /usr/bin/pacman -S --noconfirm --needed ntp tldr python-pip broadcom-wl w3m pandoc light vifm dialog wpa_supplicant iw networkmanager network-manager-applet openconnect networkmanager-openconnect lm_sensors dnsutils
 sudo /usr/bin/pacman -S --noconfirm --needed mlocate bluez bluez-utils xz nvme-cli nodejs npm yarn cmake ninja tree-sitter
 sudo /usr/bin/pacman -S --noconfirm --needed nmap htop iotop iftop powertop nmap parallel tmux rsync net-tools udisks2
-sudo /usr/bin/pacman -S --noconfirm --needed wget zip unzip alsa-utils pulseaudio-alsa pulseaudio pulsemixer pulseaudio-bluetooth pulseaudio-equalizer mpd mpc pavucontrol avahi cups btrfs-progs snapper snap-pac fzf keychain
+sudo /usr/bin/pacman -S --noconfirm --needed wget zip unzip alsa-utils  mpd mpc pavucontrol avahi cups pipewire pulseeffects
+sudo /usr/bin/pacman -S --noconfirm --needed btrfs-progs snapper snap-pac fzf keychain
 sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bash-completion exa fd pacman-contrib
 
 sudo systemctl start bluetooth.service
