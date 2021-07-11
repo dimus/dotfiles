@@ -12,3 +12,5 @@ xsetwacom set "$STYLUS" Button 2 "button +3" && xsetwacom set "$STYLUS" Button 3
 
 echo "Button 2 is " `xsetwacom get "$STYLUS" Button 2`
 echo "Button 3 is " `xsetwacom get "$STYLUS" Button 3`
+
+xsetwacom -v set "Wacom Intuos BT S Pen stylus" MapToOutput HEAD-0
