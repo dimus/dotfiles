@@ -93,6 +93,6 @@ class MyKeys:
         res = [
             Key([MOD], "z", lazy.group["scratchpad"].dropdown_toggle("term")),
             Key([MOD], "x", lazy.group["scratchpad"].dropdown_toggle("solanum")),
-            Key([MOD], "a", lazy.group["scratchpad"].dropdown_toggle("calc")),
+            Key([MOD], "c", lazy.group["scratchpad"].dropdown_toggle("calc")),
         ]
         return res

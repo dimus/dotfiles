@@ -7,7 +7,7 @@ from libqtile.config import Key, Match, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, hook
 
-from constants import MOD
+from constants import MOD, ALT
 # key bindings
 from keys import MyKeys
 # scratchpad windows like calculator, terminal, solanum
@@ -51,9 +51,9 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(
-        ratio = 0.75,
-        max_ratio = 0.8,
-        min_ratio = 0.2,
+        ratio = 0.65,
+        max_ratio = 0.95,
+        min_ratio = 0.05,
         change_ratio = 0.02,
         align = 1,
         **layout_theme),
@@ -90,6 +90,16 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='kdenlive'),  # kdenlive
     Match(wm_class='pinentry-gtk-2'),  # GPG key password entry
 ])
+
+
+mouse = [
+    Drag(["shift"], "Button1", lazy.window.set_position_floating(),
+         start=lazy.window.get_position()),
+    Drag(["shift"], "Button3", lazy.window.set_size_floating(),
+         start=lazy.window.get_size()),
+    Click(["shift"], "Button2", lazy.window.bring_to_front()),
+]
+
 
 @hook.subscribe.startup_once
 def start_once():
