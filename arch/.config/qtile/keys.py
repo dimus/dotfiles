@@ -20,9 +20,9 @@ class MyKeys:
             Key([MOD, "shift"], "f", lazy.spawn("pcmanfm")),
             Key([MOD], "Escape", lazy.spawn('xkill')),
 
-            Key([ALT], "f", lazy.spawn("firefox")),
-            Key([ALT], "c", lazy.spawn("cantata")),
-            Key([ALT], "s", lazy.spawn("sol")),
+            Key([MOD, ALT], "f", lazy.spawn("firefox")),
+            Key([MOD, ALT], "c", lazy.spawn("cantata")),
+            Key([MOD, ALT], "s", lazy.spawn("sol")),
 
             Key([MOD], "space", lazy.next_layout(),
                 desc='Toggle through layouts'),

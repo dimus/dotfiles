@@ -40,13 +40,13 @@ EOT
 unset LANG
 source /etc/profile.d/locale.sh
 
-/usr/bin/echo ${host} | sudo tee /etc/hostname > /dev/null
+# /usr/bin/echo ${host} | sudo tee /etc/hostname > /dev/null
 
-sudo tee /etc/hosts > /dev/null << EOF
-127.0.0.1	localhost
-::1		localhost
-127.0.1.1	${host}.localdomain ${host}
-EOF
+# sudo tee /etc/hosts > /dev/null << EOF
+# 127.0.0.1	localhost
+# ::1		localhost
+# 127.0.1.1	${host}.localdomain ${host}
+# EOF
 
 ### Setup font for terminal ###
 
@@ -76,6 +76,7 @@ sudo /usr/bin/pacman -S --noconfirm --needed nmap htop iotop iftop powertop nmap
 sudo /usr/bin/pacman -S --noconfirm --needed wget zip unzip alsa-utils  mpd mpc pavucontrol avahi cups pipewire pulseeffects
 sudo /usr/bin/pacman -S --noconfirm --needed btrfs-progs snapper snap-pac fzf keychain pass
 sudo /usr/bin/pacman -S --noconfirm --needed avahi nss-mdns cups acpi man-db bash-completion exa fd pacman-contrib
+sudo /usr/bin/pacman -S --noconfirm --needed neovim starship fd broot lsd
 
 sudo systemctl start bluetooth.service
 sudo systemctl enable ntpdate.service
@@ -136,12 +137,12 @@ if [[ ! -d ~/.mpd ]]; then
 fi
 
 
-### Xorg and i3 ###
+### Xorg ###
 
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool xorg-xkill
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcmanfm xorg-xfontsel xorg-xlsfonts xorg-xprop
 sudo /usr/bin/pacman -S --noconfirm --needed xf86-input-wacom alacritty
-sudo /usr/bin/pacman -S --noconfirm --needed i3-gaps i3blocks i3status dmenu rxvt-unicode feh dunst compton unclutter
+sudo /usr/bin/pacman -S --noconfirm --needed dmenu rxvt-unicode feh dunst picon unclutter
 sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox firefox-i18n-en-us chromium gimp powerline
 sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code
 sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol
@@ -186,6 +187,8 @@ rm -f ~/bin/solti
 ln -s ~/src/dotfiles/unix/bin/solti ~/bin/solti
 rm -f ~/bin/trim
 ln -s ~/src/dotfiles/unix/bin/trim ~/bin/trim
+rm -f ~/bin/gotools
+ln -s ~/src/dotfiles/unix/bin/gotools ~/bin/gotools
 rm -f ~/bin/ru
 ln -s ~/src/dotfiles/unix/bin/ru ~/bin/ru
 rm -f ~/bin/de
