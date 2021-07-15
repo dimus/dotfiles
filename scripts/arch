@@ -142,7 +142,7 @@ fi
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-server xf86-video-intel xorg-xinit xterm xorg-xrandr xsel xclip xdotool xorg-xkill
 sudo /usr/bin/pacman -S --noconfirm --needed xorg-xwininfo xorg-xset scrot pcmanfm xorg-xfontsel xorg-xlsfonts xorg-xprop
 sudo /usr/bin/pacman -S --noconfirm --needed xf86-input-wacom alacritty
-sudo /usr/bin/pacman -S --noconfirm --needed dmenu rxvt-unicode feh dunst picon unclutter
+sudo /usr/bin/pacman -S --noconfirm --needed dmenu rxvt-unicode feh dunst picom unclutter
 sudo /usr/bin/pacman -S --noconfirm --needed zathura zathura-pdf-poppler firefox firefox-i18n-en-us chromium gimp powerline
 sudo /usr/bin/pakman -S --noconfirm --needed awesome-terminal-fonts otf-font-awesome ttf-font-awesome otf-fira-code
 sudo /usr/bin/pakman -S --noconfirm --needed otf-fira-mono ttf-fira-code ttf-fira-mono ttf-nerd-fonts-symbol
