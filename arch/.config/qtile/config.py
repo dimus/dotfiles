@@ -33,7 +33,7 @@ for j, names in enumerate(MyWorkspaces.pinned_groups()):
         for i in names)
 
 keys.extend(Key([MOD, 'shift'], i, lazy.window.togroup(i))
-        for i in MyWorkspaces.all_groups())
+            for i in MyWorkspaces.all_groups())
 
 groups.append(MyScratchPad.pad())
 keys += MyKeys.keys_scratchpad()
@@ -51,11 +51,11 @@ layout_theme = {
 
 layouts = [
     layout.MonadTall(
-        ratio = 0.65,
-        max_ratio = 0.95,
-        min_ratio = 0.05,
-        change_ratio = 0.02,
-        align = 1,
+        ratio=0.65,
+        max_ratio=0.95,
+        min_ratio=0.05,
+        change_ratio=0.02,
+        align=1,
         **layout_theme),
     layout.MonadWide(**layout_theme),
     layout.Max(**layout_theme),
@@ -66,9 +66,9 @@ layouts = [
 ###############################################################################
 
 widget_defaults = dict(font="Fira Mono Nerd Font",
-        fontsize=21,
-        padding=0,
-        )
+                       fontsize=21,
+                       padding=0,
+                       )
 
 extension_defaults = widget_defaults.copy()
 
